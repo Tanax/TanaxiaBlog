@@ -46,27 +46,12 @@ var Starter = Backbone.Model.extend({
 					id: 'bottom-nav-blog',
 					class: 'bottom-nav',
 					items: [
-						{
-							item: {
-								class: 'earlier navpage-blog',
-								url: '#/blog/page/1', 
-								text: 'Page 1' 
-							}
-						},
 
 						{
 							item: {
 								class: 'about navpage-blog',
 								url: '#/about', 
 								text: 'About' 
-							}
-						},
-
-						{
-							item: {
-								class: 'older navpage-blog',
-								url: '#/blog/page/2', 
-								text: 'Page 2' 
 							}
 						}
 					]
@@ -155,6 +140,9 @@ var Starter = Backbone.Model.extend({
 			$(html).appendTo('#page-bars');
 
 		}
+
+		if( $('.earlier').length > 0 ) $('.earlier').appendTo('#bottom-nav-blog ul');
+		if( $('.older')  .length > 0 ) $('.older')  .appendTo('#bottom-nav-blog ul');
 
 	},
 
