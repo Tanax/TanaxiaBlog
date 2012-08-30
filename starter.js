@@ -5,106 +5,140 @@ var Starter = Backbone.Model.extend({
 
 		var topBlog = {
 
-			type: 'Top',
-			id: 'top-bar-blog',
-			logo: true,
-			navigation: true,
-			nav: {
-				id: 'top-nav-blog',
-				class: 'top-nav',
-				items: [
-					{
-						class: 'message navpage-blog',
-						link: { url: '#/message', text: 'Message Me' }
-					},
+			bar: {
+				type: 'Top',
+				id: 'top-bar-blog',
+				logo: true,
+				navigation: true,
+				nav: {
+					id: 'top-nav-blog',
+					class: 'top-nav',
+					items: [
+						{
+							item: {
+								class: 'message navpage-blog',
+								url: '#/message', 
+								text: 'Message Me' 
+							}
+						},
 
-					{
-						class: 'search navpage-blog',
-						link: { url: '#/search', text: 'Search Tags' }
-					}
-				]
+						{
+							item: {
+								class: 'search navpage-blog',
+								url: '#/search', 
+								text: 'Search Tags' 
+							}
+						}
+					]
+				}
+
 			}
 
 		};
 
 		var bottomBlog = {
 
-			type: 'Bottom',
-			id: 'bottom-bar-blog',
-			navigation: true,
-			nav: {
-				id: 'bottom-nav-blog',
-				class: 'bottom-nav',
-				items: [
-					{
-						class: 'earlier navpage-blog',
-						link: { url: '#/blog/page/1', text: 'Page 1' }
-					},
+			bar: {
+				type: 'Bottom',
+				id: 'bottom-bar-blog',
+				navigation: true,
+				nav: {
+					id: 'bottom-nav-blog',
+					class: 'bottom-nav',
+					items: [
+						{
+							item: {
+								class: 'earlier navpage-blog',
+								url: '#/blog/page/1', 
+								text: 'Page 1' 
+							}
+						},
 
-					{
-						class: 'about navpage-blog',
-						link: { url: '#/about', text: 'About' }
-					},
+						{
+							item: {
+								class: 'about navpage-blog',
+								url: '#/about', 
+								text: 'About' 
+							}
+						},
 
-					{
-						class: 'older navpage-blog',
-						link: { url: '#/blog/page/2', text: 'Page 2' }
-					}
-				]
+						{
+							item: {
+								class: 'older navpage-blog',
+								url: '#/blog/page/2', 
+								text: 'Page 2' 
+							}
+						}
+					]
+				}
 			}
 
 		};
 
 		var topMessage = {
 
-			type: 'Top',
-			id: 'top-bar-message',
-			logo: true,
-			navigation: false
+			bar: {
+				type: 'Top',
+				id: 'top-bar-message',
+				logo: true,
+				navigation: false
+			}
 
 		};
 
 		var bottomMessage = {
 
-			type: 'Bottom',
-			id: 'bottom-bar-message',
-			navigation: true,
-			nav: {
-				id: 'bottom-nav-message',
-				class: 'bottom-nav',
-				items: [
-					{
-						class: 'message-back navpage-message',
-						link: { url: '#/blog/page/1', text: 'Back To Blog' }
-					}
-				]
+			bar: {
+				type: 'Bottom',
+				id: 'bottom-bar-message',
+				navigation: true,
+				nav: {
+					id: 'bottom-nav-message',
+					class: 'bottom-nav',
+					items: [
+						{
+							item: {
+								class: 'message-back navpage-message',
+								url: '#/blog/page/1', 
+								text: 'Back To Blog' 
+							}
+						}
+					]
+				}
 			}
 
 		};
 
 		var topAbout = {
 
-			type: 'Top',
-			id: 'top-bar-about',
-			logo: true,
-			navigation: true,
-			nav: {
-				id: 'nav-bar-about',
-				class: 'top-nav',
-				items: [
-					{
-						class: 'about-back navpage-about',
-						link: { url: '#/blog/page/1', text: 'Back To Blog' }
-					}
-				]
+			bar: {
+				type: 'Top',
+				id: 'top-bar-about',
+				logo: true,
+				navigation: true,
+				nav: {
+					id: 'nav-bar-about',
+					class: 'top-nav',
+					items: [
+						{
+							item: {
+								class: 'about-back navpage-about',
+								url: '#/blog/page/1', 
+								text: 'Back To Blog' 
+							}
+						}
+					]
+				}
 			}
 
 		};
 
 		var bottomAbout = {
 
-			type: 'Bottom',
-			id: 'bottom-bar-about'
+			bar: {
+				type: 'Bottom',
+				id: 'bottom-bar-about'
+			}
 
 		};
 
