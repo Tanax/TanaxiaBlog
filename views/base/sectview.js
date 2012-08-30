@@ -8,31 +8,24 @@ var SectView = View.extend({
 		var newPage = newSect.pages.get( newSect.get( 'activePage' ) );
 		var newPageView = newPage.view;
 
-		console.log('Activating section: ' + newSect.id);
+		var options = {sectChanged: !!oldSect, starter: ( app.sections.get( newSect.id ).setFromStarter == true )};
 
-		var options = {sectChanged: !!oldSect};
-
-		if( !newSect.hasChanged( 'activePage' ) )
+		if( !newSect.hasChanged( 'activePage' ) || app.sections.get( newSect.id ).setFromStarter == true )
 			newPageView.activate( null, newPage, options );
 
 		else
 		{
 
-			var oldPage = newSect.pages.get( newSect.previous( 'activePage' ) );
+			var oldPage = newSect.pages.get( newSect.previous('activePage') );
 			var oldPageView = oldPage.view;
 
-			oldPageView.deactivate( oldpage, newPage, options );
-			newPageView.activate( oldpage, newPage, options );
+			oldPageView.deactivate( oldPage, newPage, options );
+			newPageView.activate( oldPage, newPage, options );
 
 		}
 
-		if( oldSect ) 
-		{
-
-			console.log('We have an old section, calling show()');
-			this.show();
-
-		}
+		if( oldSect ) this.show();
+		if( options.starter ) app.sections.get( newSect.id ).setFromStarter = false;
 
 	},
 
@@ -48,7 +41,6 @@ var SectView = View.extend({
 
 	show: function( next ) {
 
-		console.log('Showing the new section!');
 		$('#page').animate( {top: -this.model.id * 100 + "%"}, next );
 
 	}

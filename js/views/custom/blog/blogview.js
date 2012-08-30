@@ -1,2 +1,0 @@
-
-var BlogView = PageView.extend();

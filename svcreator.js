@@ -1,0 +1,134 @@
+
+var SVCreator = Backbone.Model.extend({
+	
+	setup: function( setup ) {
+
+		return this.createSections( setup );
+
+	},
+
+	createChanger: function( attributes ) {
+
+		if( !attributes || attributes == undefined ) return {};
+
+		var changer = new window[attributes.options.name];
+		return { changer: changer };
+
+	},
+
+	createSections: function( attributes ) {
+
+		if( !attributes ) return;
+
+		var sections = new Array();
+
+		for( var current in attributes )
+		{
+
+			var section = this.createSection( attributes[current], current );
+			if( section ) sections.push( section.object );
+
+		}
+
+		return sections;
+
+	},
+
+	createSection: function( attributes, id ) {
+
+		if( !attributes ) return;
+
+		var object = {};
+		var pages = this.createPages( attributes.pages );
+		var changer = this.createChanger( attributes.changer );
+
+		if( pages )
+		{
+
+			var options = this.mergeOptions( attributes.options, this.mergeOptions( { name: id }, this.mergeOptions( pages.activePage, changer ) ) );
+
+			var section = new Section( options );
+			section.pages.add( pages.objects );
+
+			if( attributes.view ) this.createView( attributes.view, section );
+
+			object = { object: section }
+
+		}
+
+		return object;
+
+	},
+
+	createPages: function( attributes ) {
+
+		if( !attributes ) return;
+
+		var pages = new Array();
+		var activePage = {};
+
+		for( var current in attributes )
+		{
+
+			if( current == '__globals__' ) continue;
+
+			var page = this.createPage( attributes[current], current, attributes.__globals__ );
+			if( page )
+			{
+
+				pages.push( page.object );
+				if( page.activePage ) activePage = page.activePage;
+
+			}
+
+		}
+
+		return { objects: pages, activePage: activePage };
+
+	},
+
+	createPage: function( attributes, id, viewGlobals ) {
+
+		if( !attributes ) return;
+
+		var activePage = null;
+		var options = this.mergeOptions( attributes.options, { id: id } );
+
+		if( options.setActive ) activePage = { activePage: options.id };
+		delete options.setActive;
+
+		var page = new Page( options );
+
+		if( attributes.view ) this.createView( attributes.view, page, viewGlobals );
+		return { object: page, activePage: activePage };
+
+	},
+
+	createView: function( attributes, model, globals ) {
+
+		if( !attributes ) return;
+
+		attributes.options = this.mergeOptions( attributes.options, this.mergeOptions( { model: model }, globals ) );
+		return this.getView( attributes );
+
+	},
+
+
+	getView: function( view ) {
+
+		var name = view.options.name;
+		delete view.options.name;
+
+		return new window[name]( view.options );
+
+	},
+
+	mergeOptions: function( current, globals ) {
+
+		if( !globals ) return current;
+		return $.extend( {}, globals, current );
+
+	}
+
+
+});

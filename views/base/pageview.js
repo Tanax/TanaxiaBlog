@@ -29,11 +29,7 @@ var PageView = View.extend({
 		this.init();
 
 		if( oldPage )
-		{
-
 			this.show( !options.sectChanged && app.inited );
-
-		}
 
 	},
 
@@ -54,7 +50,6 @@ var PageView = View.extend({
 
 	show: function( animate, next ) {
 
-		console.log('SHOW');
 		this.fadeIn( animate, next );
 
 	},
@@ -101,13 +96,24 @@ var PageView = View.extend({
 
 		var $container = $(this.container);
 
-		if( animate ) $container.animate( {scrollTop: 0}, next );
+		if( animate ) 
+		{
+
+			$container.animate( {scrollTop: 0}, function() {
+
+				next();
+				return true;
+
+			});
+
+		}
 
 		else
 		{
 
 			$container.scrollTop(0);
 			next();
+			return true;
 
 		}
 
