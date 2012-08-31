@@ -85,7 +85,7 @@ var BlogPageView = PageView.extend({
 
 		//var $el = $(this.el);
 		var $this = this;
-		console.log('Sliding in to ' + toSide);
+		console.log('El: ' + this.el);
 
 		if( animate ) 
 		{
