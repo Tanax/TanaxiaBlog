@@ -85,11 +85,11 @@ var BlogPageChanger = Page.extend({
 			if( that.found )
 			{
 		
-				console.log('Inserting page-id ' + '/' + that.resourceId + '/' + that.page + ' with index: ' + (that.page-1));
+				console.log('Inserting page-id ' + '/' + that.resourceId + '/page/' + that.page + ' with index: ' + (that.page-1));
 				console.log('El: ' + that.element.attr('id'));
 				var options = {
 
-					options: { id: '/' + that.resourceId + '/' + that.page, index: ( that.page - 1 ) },
+					options: { id: '/' + that.resourceId + '/page/' + that.page, index: ( that.page - 1 ) },
 					view: {
 						options: { el: that.element.attr('id'), container: $('#blog'), name: 'BlogPageView' }
 					}
