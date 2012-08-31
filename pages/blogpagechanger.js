@@ -43,16 +43,15 @@ var BlogPageChanger = Page.extend({
 
 		});
 
-		// Do AJAX call here and insert into the element
-
-		/*
-		this.insertElement();*/
+		this.insertElement();
+		Application.prototype.fixLinks();
 
 	},
 
 	processData: function( data ) {
 
-		console.log( $(data).filter('#loadedContent').html() );
+		var insert = $(data).filter('#loadedContent').html();
+		this.element.html( insert );
 
 	},
 
