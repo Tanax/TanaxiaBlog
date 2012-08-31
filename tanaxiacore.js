@@ -100,7 +100,7 @@ var Application = Backbone.Model.extend({
 				{
 
 					console.log('Found page-link!');
-					link.attr('href', '#/blog' + link.href).removeClass('fix').addClass('fixed');
+					link.attr('href', '#/blog' + link.attr('href')).removeClass('fix').addClass('fixed');
 
 				} break;
 
