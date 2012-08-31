@@ -46,6 +46,7 @@ var BlogPageChanger = Page.extend({
 
 		});
 
+		
 		this.insertElement();
 		Application.prototype.fixLinks();
 
@@ -95,7 +96,13 @@ var BlogPageChanger = Page.extend({
 
 		});
 
-		if( !inserted ) this.insertInto();
+		if( !inserted ) 
+		{
+
+			console.log('This is the first element inserted..');
+			this.insertInto();
+
+		}
 
 		this.addPage();
 		this.found = false;
@@ -104,6 +111,9 @@ var BlogPageChanger = Page.extend({
 
 	addPage: function() {
 
+		console.log('Page id: /' + this.resourceId + '/page/' + this.page);
+		console.log('Page index: ' + this.page - 1);
+		console.log('El: ' + this.element.attr('id'));
 		var options = {
 
 			options: { id: '/' + this.resourceId + '/page/' + this.page, index: ( this.page - 1 ) },
@@ -128,7 +138,6 @@ var BlogPageChanger = Page.extend({
 		this.firstElement	= null;
 		this.resourceId		= null;
 		this.found			= false;
-		$('#loadedContent').empty();
 
 	}
 
