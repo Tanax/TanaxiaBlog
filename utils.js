@@ -51,6 +51,7 @@ var Utils = Backbone.Model.extend({
 		var loadedContent = $('#loadedContent').html();
 
 		console.log('Checking if we should insert currently loaded data!');
+		console.log('Loaded content length: ' + loadedContent.length);
 		if( loadedContent.length > 0 && this.hashElement() )
 		{
 
