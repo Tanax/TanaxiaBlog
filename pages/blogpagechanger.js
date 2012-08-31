@@ -52,13 +52,7 @@ var BlogPageChanger = Page.extend({
 
 	processData: function( data ) {
 
-		var nData = $(data);
-		var find = nData.find('#loadedContent');
-		console.log(data);
-		console.log( nData );
-		console.log( find );
-		console.log( find.html() );
-		console.log( find.text() );
+		console.log( $(data).filter('#loadedContent').html() );
 
 	},
 
