@@ -24,17 +24,26 @@ var BlogPageChanger = Page.extend({
 
 		var that = this;
 		this.ready = false;
-		$.ajax({
+		var request = $.ajax({
 
 			url: that.ajax.url,
 			success: function( data ) { that.handleData( data ); }
 
 		});
 
+		console.log('Beginning When');
+		$.when( request() ).done( function() {
+
+			console.log('AJAX-Request done!');
+
+		});
+		console.log('Ending When');
+
 	},
 
 	handleData: function( data ) {
 
+		console.log('Handling data');
 		var content = $(data).filter('#loadedContent').html();
 		var earlier = $(data).filter('.earlier').html();
 		var older   = $(data).filter('.older').html();

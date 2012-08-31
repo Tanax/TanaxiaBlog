@@ -38,13 +38,9 @@ var Section = Backbone.Model.extend({
 			console.log('Section: calling before change in section: ' + this.get('name'));
 
 			var changer = this.get('changer');
-			if( changer ) 
-			{
+			if( changer ) changer.beforeChange( pageId, resourceId );
 
-				changer.beforeChange( pageId, resourceId );
-				while( !changer.ready ) { console.log('Waiting for Changer...'); if( changer.ready ) break; }
-
-			}
+			console.log('After changer-call');
 
 			Utils.prototype.insertLoaded( pageId, resourceId );
 			this.beforeChangeAvailable = false;
