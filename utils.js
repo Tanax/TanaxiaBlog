@@ -103,10 +103,11 @@ var Utils = Backbone.Model.extend({
 		{
 
 			console.log('Inserting navigation');
-			$('#bottom-nav-blog .earlier').remove();
-			$('#bottom-nav-blog .older').remove();
+			$('#bottom-nav-blog ul .earlier').remove();
+			$('#bottom-nav-blog ul .older').remove();
 
-			$('#bottom-nav-blog').append( loadedNavigation );
+			console.log(loadedNavigation);
+			$('#bottom-nav-blog ul').append( loadedNavigation );
 
 		}
 
