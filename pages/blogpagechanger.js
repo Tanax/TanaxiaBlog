@@ -85,8 +85,6 @@ var BlogPageChanger = Page.extend({
 			if( that.found )
 			{
 		
-				console.log('Inserting page-id ' + '/' + that.resourceId + '/page/' + that.page + ' with index: ' + (that.page-1));
-				console.log('El: ' + that.element.attr('id'));
 				var options = {
 
 					options: { id: '/' + that.resourceId + '/page/' + that.page, index: ( that.page - 1 ) },
@@ -98,13 +96,7 @@ var BlogPageChanger = Page.extend({
 				var page = SVCreator.prototype.createPage( options );
 				var section = app.getSection( 'blog' );
 
-				if( page.object && section ) 
-				{
-
-					console.log('Adding page to section');
-					section.pages.add( page.object );
-
-				}
+				if( page.object && section ) section.pages.add( page.object );
 
 				return inserted = true;
 
