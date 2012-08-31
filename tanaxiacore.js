@@ -84,18 +84,20 @@ var Application = Backbone.Model.extend({
 			var link = $(this);
 			if( link == undefined || link.attr('href') == undefined ) return;
 
-			var type = link.attr('href').split('/')[1];
+			var start = link.attr('href').replace('http://tanaxiablog.tumblr.com', '');
+
+			var type = start.attr('href').split('/')[1];
 
 			switch( type )
 			{
 
 				case 'page': 
-					link.attr('href', '#/blog' + link.attr('href')).removeClass('fix').addClass('fixed'); 
+					start.attr('href', '#/blog' + start.attr('href')).removeClass('fix').addClass('fixed'); 
 				break;
 
 				case 'post':
-					var href = link.attr('href').split('/')[link.attr('href').split('/').length - 1];
-					link.attr('href', '#/blog' + link.attr('href').replace(href, '')).removeClass('fix').addClass('fixed');
+					var href = start.attr('href').split('/')[start.attr('href').split('/').length - 1];
+					start.attr('href', '#/blog' + start.attr('href').replace(href, '')).removeClass('fix').addClass('fixed');
 					console.log('Fixed a post-link');
 				break;
 
