@@ -52,7 +52,8 @@ var BlogPageChanger = Page.extend({
 
 	processData: function( data ) {
 
-		console.log(data);
+		//console.log(data);
+		console.log( $('loadedContent', data).html() );
 
 	},
 
