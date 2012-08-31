@@ -87,13 +87,11 @@ var BlogPageChanger = Page.extend({
 		
 				console.log('Inserting page-id ' + '/' + that.resourceId + '/' + that.page + ' with index: ' + (that.page-1));
 				console.log('El: ' + that.element.attr('id'));
-				var el = '#' + that.element_name + page;
-				console.log('Other el: ' + el);
 				var options = {
 
 					options: { id: '/' + that.resourceId + '/' + that.page, index: ( that.page - 1 ) },
 					view: {
-						options: { el: el, container: $('#blog'), name: 'BlogPageView' }
+						options: { el: that.element.attr('id'), container: $('#blog'), name: 'BlogPageView' }
 					}
 				};
 
