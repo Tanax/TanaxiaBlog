@@ -167,19 +167,9 @@ var AppRouter = Backbone.Router.extend({
 
 		app.sections.some( function( section ) {
 
-			//if( section.get('name') == $this.resource_id ) 
-			//	section.beforeChange( $this.page_id, $this.resource_id );
-			console.log('Current section: ' + section.get('name'));
-			section.pages.some( function( page ) {
-
-				console.log('Page in this section: ' + page.id);
-
-			});
-
 			if( !section.validate( attributes ) )
 			{
 
-				console.log('Found page in section!');
 				section.set( attributes, {silent: true} );
 				app.set( {activeSect: section.id}, {silent: true} );
 

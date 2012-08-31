@@ -50,10 +50,10 @@ var app = new Application({ activeSect: 1 });
 // Add the sections
 app.sections.add( sections );
 
-// Set page-location to the currently requested section in the URL
-Starter.prototype.setStartSection( app.sections );
 // Initialize everything
 Starter.prototype.init( sections );
+// Set page-location to the currently requested section in the URL
+Starter.prototype.setStartSection( app.sections );
 
 // Create router and view
 var router = new AppRouter();

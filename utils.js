@@ -13,7 +13,6 @@ var Utils = Backbone.Model.extend({
 		if( $(div).length <= 0 ) result = true;
 		if( hashExclude && hash == hashExclude ) result = false;
 
-		console.log('HashElement returning: ' + result);
 		return result;
 
 	},
@@ -51,8 +50,6 @@ var Utils = Backbone.Model.extend({
 		var loadedContent = $('#loadedContent').html();
 		var loadedNavigation = $('#loadedNavigation').html();
 
-		console.log('Checking if we should insert currently loaded data!');
-		console.log('Loaded content length: ' + loadedContent.length);
 		if( loadedContent.length > 0 && this.hashElement() )
 		{
 
@@ -97,12 +94,9 @@ var Utils = Backbone.Model.extend({
 
 		}
 
-		console.log('Checking if we should insert new navigation');
-		console.log('Loaded navigation length: ' + loadedNavigation.length);
 		if( loadedNavigation.length > 0 && resourceId == 'blog' )
 		{
 
-			console.log('Inserting navigation');
 			$('#bottom-nav-blog ul .earlier').remove();
 			$('#bottom-nav-blog ul .older').remove();
 
@@ -182,7 +176,6 @@ var Utils = Backbone.Model.extend({
 
 	checkInserted: function( inserted, data ) {
 
-		console.log('Check inserted status: ' + inserted);
 		if( inserted ) return inserted;
 		$( data.element.object ).appendTo( '#' + data.page.container );
 

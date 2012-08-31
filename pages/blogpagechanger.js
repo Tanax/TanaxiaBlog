@@ -12,7 +12,6 @@ var BlogPageChanger = Page.extend({
 
 	checkAjax: function() {
 
-		console.log('Checking if we should AJAX current page!');
 		if( Utils.prototype.hashElement( '/blog/page/1' ) ) this.handleAjax();
 
 	},
@@ -36,7 +35,6 @@ var BlogPageChanger = Page.extend({
 
 	handleData: function( data ) {
 
-		console.log('Handling data');
 		var content = $(data).filter('#loadedContent').html();
 		var navigation = $(data).filter('#loadedNavigation').html();
 
