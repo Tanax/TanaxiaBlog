@@ -171,6 +171,7 @@ var AppRouter = Backbone.Router.extend({
 			if( !section.validate( attributes ) )
 			{
 
+				console.log('Found page in section!');
 				section.set( attributes, {silent: true} );
 				app.set( {activeSect: section.id}, {silent: true} );
 
