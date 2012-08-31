@@ -2,12 +2,7 @@ var noop = function() {};
 var $doc = $(document);
 var slice = [].slice;
 
-var Page = Backbone.Model.extend({
-
-	beforeChange: function( pageId, resourceId ) {}
-
-});
-
+var Page = Backbone.Model.extend();
 var Pages = Backbone.Collection.extend({model: Page});
 
 var Section = Backbone.Model.extend({
@@ -60,8 +55,6 @@ var Application = Backbone.Model.extend({
 	initialize: function() {
 
 		this.sections = new Sections();
-		//this.fixLinks();
-		//this.disableLinks();
 
 	},
 
@@ -89,20 +82,21 @@ var Application = Backbone.Model.extend({
 		$('.fix').each( function( index ) {
 
 			var link = $(this);
-			console.log('Looping through link index: ' + index);
-			var type = link.attr('href')
-			if( type !== undefined ) type = type.split('/')[1];
+			if( link == undefined || link.attr('href') == undefined ) return;
+
+			var type = link.attr('href').split('/')[1];
 
 			switch( type )
 			{
 
-				case 'page':
-				{
+				case 'page': 
+					link.attr('href', '#/blog' + link.attr('href')).removeClass('fix').addClass('fixed'); 
+				break;
 
-					console.log('Found page-link!');
-					link.attr('href', '#/blog' + link.attr('href')).removeClass('fix').addClass('fixed');
-
-				} break;
+				case 'post':
+					var href = link.attr('href').split('/')[link.attr('href').split('/').length - 1];
+					link.attr('href', '#/blog' + link.attr('href').replace(href, '')).removeClass('fix').addClass('fixed');
+				break;
 
 			}
 
@@ -113,10 +107,6 @@ var Application = Backbone.Model.extend({
 }, 
 {
 	
-	title: document.title,
-	
-	txt2name: function(text) {
-		return $.trim(text).toLowerCase().replace(/\s+/g, '-');
-	}
+	title: document.title
 
 });

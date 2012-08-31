@@ -3,6 +3,32 @@ var Starter = Backbone.Model.extend({
 	
 	init: function( sections ) {
 
+		if( $('.earlier').length > 0 ) $('.earlier').appendTo('#bottom-nav-blog ul');
+		if( $('.older')  .length > 0 ) $('.older')  .appendTo('#bottom-nav-blog ul');
+
+		// Get URL hash
+		var hash = window.location.hash.replace('#', '');
+		hash = AppRouter.prototype.fixPageId( hash );
+		var resource = hash.split('/')[1];
+
+		// Insert loaded content from Tumblr into our page
+		var div = $('#loadedContent');
+		var insert = div.html();
+		//div.empty();
+
+		// Handle the loaded content differently depending on what type
+		// of resource we want to load
+		switch( resource )
+		{
+
+			case 'blog': this.handleBlog( insert, hash, sections ); break;
+
+		}
+
+	},
+
+	appendBars: function() {
+
 		var topBlog = {
 
 			bar: {
@@ -141,25 +167,6 @@ var Starter = Backbone.Model.extend({
 
 		}
 
-		if( $('.earlier').length > 0 ) $('.earlier').appendTo('#bottom-nav-blog ul');
-		if( $('.older')  .length > 0 ) $('.older')  .appendTo('#bottom-nav-blog ul');
-
-		// Get URL hash
-		var hash = window.location.hash.replace('#', '');
-		hash = AppRouter.prototype.fixPageId( hash );
-		var resource = hash.split('/')[1];
-
-		var div = $('#loadedContent');
-		var insert = div.html();
-		div.empty();
-
-		switch( resource )
-		{
-
-			case 'blog': this.handleBlog( insert, hash, sections ); break;
-
-		}
-
 	},
 
 	handleBlog: function( insert, hash, sections ) {
@@ -173,6 +180,14 @@ var Starter = Backbone.Model.extend({
 
 				$('#blog-pages').empty();
 				this.handleBlogPage( insert, hash, sections ); 
+
+			} break;
+
+			case 'post':
+			{
+
+				//$('#blog-posts').empty();
+				//this.handleBlogPost( insert, hash );
 
 			} break;
 

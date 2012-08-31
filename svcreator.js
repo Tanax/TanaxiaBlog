@@ -10,9 +10,7 @@ var SVCreator = Backbone.Model.extend({
 	createChanger: function( attributes ) {
 
 		if( !attributes || attributes == undefined ) return {};
-
-		var changer = new window[attributes.options.name];
-		return { changer: changer };
+		return { changer: new window[attributes.options.name] };
 
 	},
 
@@ -38,25 +36,17 @@ var SVCreator = Backbone.Model.extend({
 
 		if( !attributes ) return;
 
-		var object = {};
 		var pages = this.createPages( attributes.pages );
 		var changer = this.createChanger( attributes.changer );
 
-		if( pages )
-		{
+		var activePage = ( pages && pages.activePage ) ? pages.activePage : {};
+		var options = this.mergeOptions( attributes.options, this.mergeOptions( { name: id }, this.mergeOptions( activePage, changer ) ) );
+		var section = new Section( options );
 
-			var options = this.mergeOptions( attributes.options, this.mergeOptions( { name: id }, this.mergeOptions( pages.activePage, changer ) ) );
+		if( pages && pages.objects ) section.pages.add( pages.objects );
+		if( attributes.view ) this.createView( attributes.view, section );
 
-			var section = new Section( options );
-			section.pages.add( pages.objects );
-
-			if( attributes.view ) this.createView( attributes.view, section );
-
-			object = { object: section }
-
-		}
-
-		return object;
+		return { object: section };
 
 	},
 

@@ -15,9 +15,9 @@ var setup = {
 	blog: {
 		options: { id: 1 },
 		view: { options: { name: 'BlogSectionView' } },
-		changer: { options: { name: 'BlogPageChanger' } },
+		changer: { options: { name: 'BlogPageChanger' } }/*,
 		pages: {
-			/*__globals__: { name: 'BlogPageView', container: '#blog' },
+			__globals__: { name: 'BlogPageView', container: '#blog' },
 			'/blog/page/1': {
 				options: { index: 0, setActive: true },
 				view: { options: { el: '#page1' } }
@@ -25,8 +25,8 @@ var setup = {
 			'/blog/page/2': {
 				options: { index: 1 },
 				view: { options: { el: '#page2' } }
-			}*/
-		}
+			}
+		}*/
 	},
 
 	about: {
