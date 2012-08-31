@@ -72,6 +72,12 @@ var BlogPageChanger = Page.extend({
 
 	},
 
+	insertInto: function() {
+
+		$(this.element).appendTo('.blog-pages');
+
+	},
+
 	insertElement: function() {
 
 		var that = this;
@@ -85,31 +91,33 @@ var BlogPageChanger = Page.extend({
 			if( page > that.page ) that.insertBefore( page );
 			else if( ( index + 1 ) == length ) that.insertAfter( page );
 
-			if( that.found )
-			{
-		
-				var options = {
-
-					options: { id: '/' + that.resourceId + '/page/' + that.page, index: ( that.page - 1 ) },
-					view: {
-						options: { el: '#' + that.element.attr('id'), container: $('#blog'), name: 'BlogPageView' }
-					}
-				};
-
-				var page = SVCreator.prototype.createPage( options );
-				var section = app.getSection( 'blog' );
-
-				if( page.object && section ) section.pages.add( page.object );
-
-				return inserted = true;
-
-			}
+			if( that.found ) return inserted = true;
 
 		});
 
-		if( !inserted ) $(this.element).appendTo('.blog-pages');
+		if( !inserted ) this.insertInto();
+
+		this.addPage();
+		this.found = false;
 
 	},
+
+	addPage: function() {
+
+		var options = {
+
+			options: { id: '/' + that.resourceId + '/page/' + that.page, index: ( that.page - 1 ) },
+			view: {
+				options: { el: '#' + that.element.attr('id'), container: $('#blog'), name: 'BlogPageView' }
+			}
+		};
+
+		var page = SVCreator.prototype.createPage( options );
+		var section = app.getSection( 'blog' );
+
+		if( page.object && section ) section.pages.add( page.object );
+
+	}
 
 	clean: function() {
 
