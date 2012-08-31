@@ -38,11 +38,10 @@ var BlogPageChanger = Page.extend({
 
 		console.log('Handling data');
 		var content = $(data).filter('#loadedContent').html();
-		var earlier = $(data).filter('.earlier').html();
-		var older   = $(data).filter('.older').html();
+		var navigation = $(data).filter('#loadedNavigation').html();
 
 		$('#loadedContent').html( content );
-		$('#loadedNavigation').html( earlier + older );
+		$('#loadedNavigation').html( navigation );
 
 		Utils.prototype.fixLinks();
 		this.ready = true;

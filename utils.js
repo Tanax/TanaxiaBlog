@@ -49,6 +49,7 @@ var Utils = Backbone.Model.extend({
 	insertLoaded: function( pageId, resourceId ) {
 
 		var loadedContent = $('#loadedContent').html();
+		var loadedNavigation = $('#loadedNavigation').html();
 
 		console.log('Checking if we should insert currently loaded data!');
 		console.log('Loaded content length: ' + loadedContent.length);
@@ -57,7 +58,6 @@ var Utils = Backbone.Model.extend({
 
 			this.fixLinks();
 
-			console.log('Inserting data..');
 			var data = {
 				section: { name: resourceId },
 				page: { 
@@ -77,8 +77,6 @@ var Utils = Backbone.Model.extend({
 			data.element.object = $( '<div/>', { id: data.element.name, class: data.element.class } ).hide();
 			data.element.object.html( loadedContent );
 
-			console.log(data);
-
 			if( this.insertIntoPage( data ) )
 			{
 
@@ -90,15 +88,25 @@ var Utils = Backbone.Model.extend({
 					}
 				};
 
-				console.log('Page and view data:');
-				console.log(options);
-
 				var page = SVCreator.prototype.createPage( options );
 				var section = app.getSection( data.section.name );
 
 				if( page.object && section ) section.pages.add( page.object );
 
 			}
+
+		}
+
+		console.log('Checking if we should insert new navigation');
+		console.log('Loaded navigation length: ' + loadedNavigation.length);
+		if( loadedNavigation.length > 0 && resourceId == 'blog' )
+		{
+
+			console.log('Inserting navigation');
+			$('#bottom-nav-blog .earlier').remove();
+			$('#bottom-nav-blog .older').remove();
+
+			$('#bottom-nav-blog').append( loadedNavigation );
 
 		}
 

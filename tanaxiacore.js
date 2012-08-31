@@ -23,24 +23,15 @@ var Section = Backbone.Model.extend({
 
 	},
 
-	forceChange: function() {
-
-		console.log('BINDCHANGE!');
-		view.forceChange();
-
-	},
+	forceChange: function() { view.forceChange(); },
 
 	beforeChange: function( pageId, resourceId ) {
 
 		if( this.beforeChangeAvailable )
 		{
 
-			console.log('Section: calling before change in section: ' + this.get('name'));
-
 			var changer = this.get('changer');
 			if( changer ) changer.beforeChange( pageId, resourceId );
-
-			console.log('After changer-call');
 
 			Utils.prototype.insertLoaded( pageId, resourceId );
 			this.beforeChangeAvailable = false;

@@ -5,36 +5,37 @@ var Starter = Backbone.Model.extend({
 
 		this.appendBars();
 
-		if( $('.earlier').length > 0 ) $('.earlier').appendTo('#bottom-nav-blog ul');
-		if( $('.older')  .length > 0 ) $('.older')  .appendTo('#bottom-nav-blog ul');
+		//if( $('.earlier').length > 0 ) $('.earlier').appendTo('#bottom-nav-blog ul');
+		//if( $('.older')  .length > 0 ) $('.older')  .appendTo('#bottom-nav-blog ul');
+
+	},
+
+	setStartSection: function( sections ) {
 
 		// Get URL hash
 		var hash = window.location.hash.replace('#', '');
 		hash = AppRouter.prototype.fixPageId( hash );
+		var options = { activePage: hash };
 		var resource = hash.split('/')[1];
 
-		// Insert loaded content from Tumblr into our page
-		/*
-		var div = $('#loadedContent');
-		var insert = div.html();
-		//div.empty();
+		// Loop through all sections
+		sections.some( function( section ) {
 
-		// Handle the loaded content differently depending on what type
-		// of resource we want to load
-		if( insert.length > 0 )
-		{
+			if( section.get('name') == resource ) 
+				section.beforeChange( hash, resource );
 
-			console.log('loadedContent was not empty!');
-
-			switch( resource )
+			// Check if current section has the current page
+			if( !section.validate( options ) )
 			{
 
-				case 'blog': this.handleBlog( insert, hash, sections ); break;
-				case 'post': this.handleBlogPost( insert, hash ); break;
+				section.setFromStarter = true;
+				$('#page').css('top', -section.id * 100 + "%");
+
+				return;
 
 			}
 
-		}*/
+		});
 
 	},
 
@@ -177,84 +178,6 @@ var Starter = Backbone.Model.extend({
 			$(html).appendTo('#page-bars');
 
 		}
-
-	},
-
-	handleBlog: function( insert, hash, sections ) {
-
-		var type = hash.split('/')[2];
-		switch( type )
-		{
-
-			case 'page': 
-			{
-
-				$('#blog-pages').empty();
-				this.handleBlogPage( insert, hash, sections ); 
-
-			} break;
-
-		}
-
-	},
-
-	handleBlogPage: function( insert, hash, sections ) {
-
-		var page = hash.replace('/blog/page/', '');
-		var container = $('<div/>', { id: 'page' + page, class: 'blog-page' }).appendTo('#blog-pages');
-		container.html( insert );
-
-		var options = {
-			options: { index: 0 },
-			view: { options: { name: 'BlogPageView', container: '#blog', el: '#page' + page } }
-		};
-
-		var page = SVCreator.prototype.createPage( options, hash );
-		if( page.object )
-		{
-
-			sections.some( function( section ) {
-
-				if( section.get('name') == 'blog' )
-				{
-
-					section.pages.add(page.object);
-					return true;
-
-				}
-
-			});
-
-		}
-
-	},
-
-	setStartSection: function( sections ) {
-
-		// Get URL hash
-		var hash = window.location.hash.replace('#', '');
-		hash = AppRouter.prototype.fixPageId( hash );
-		var options = { activePage: hash };
-		var resource = hash.split('/')[1];
-
-		// Loop through all sections
-		sections.some( function( section ) {
-
-			if( section.get('name') == resource ) 
-				section.beforeChange( hash, resource );
-
-			// Check if current section has the current page
-			if( !section.validate( options ) )
-			{
-
-				section.setFromStarter = true;
-				$('#page').css('top', -section.id * 100 + "%");
-
-				return;
-
-			}
-
-		});
 
 	}
 
