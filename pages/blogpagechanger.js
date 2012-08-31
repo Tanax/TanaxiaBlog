@@ -86,18 +86,27 @@ var BlogPageChanger = Page.extend({
 			{
 		
 				console.log('Inserting page-id ' + '/' + that.resourceId + '/' + that.page + ' with index: ' + (that.page-1));
+				console.log('El: ' + that.element.attr('id'));
+				var el = '#' + that.element_name + page;
+				console.log('Other el: ' + el);
 				var options = {
 
 					options: { id: '/' + that.resourceId + '/' + that.page, index: ( that.page - 1 ) },
 					view: {
-						options: { el: that.element, container: $('#blog'), name: 'BlogPageView' }
+						options: { el: el, container: $('#blog'), name: 'BlogPageView' }
 					}
 				};
 
 				var page = SVCreator.prototype.createPage( options );
 				var section = app.getSection( 'blog' );
 
-				if( page.object && section ) section.pages.add( page.object );
+				if( page.object && section ) 
+				{
+
+					console.log('Adding page to section');
+					section.pages.add( page.object );
+
+				}
 
 				return inserted = true;
 
