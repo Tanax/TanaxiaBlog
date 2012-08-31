@@ -3,6 +3,8 @@ var BlogPageChanger = Page.extend({
 
 	beforeChange: function( pageId, resourceId ) {
 
+		this.ready = false;
+
 		this.clean();
 		this.ajax = { url: 'http://tanaxiablog.tumblr.com' + pageId.replace( '/' + resourceId, '' ) };
 
@@ -42,12 +44,12 @@ var BlogPageChanger = Page.extend({
 		$('#loadedNavigation').html( earlier + older );
 
 		Utils.prototype.fixLinks();
+		this.ready = true;
 
 	},
 
 	clean: function() {
 
-		console.log('Cleaning up!');
 		this.ajax = null;
 
 	}

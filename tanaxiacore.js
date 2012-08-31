@@ -2,7 +2,7 @@ var noop = function() {};
 var $doc = $(document);
 var slice = [].slice;
 
-var Page = Backbone.Model.extend();
+var Page = Backbone.Model.extend({ready: true});
 var Pages = Backbone.Collection.extend({model: Page});
 
 var Section = Backbone.Model.extend({
@@ -38,7 +38,13 @@ var Section = Backbone.Model.extend({
 			console.log('Section: calling before change in section: ' + this.get('name'));
 
 			var changer = this.get('changer');
-			if( changer ) changer.beforeChange( pageId, resourceId );
+			if( changer ) 
+			{
+
+				changer.beforeChange( pageId, resourceId );
+				while( !changer.ready ) { console.log('Waiting for AJAX...'); }
+
+			}
 
 			Utils.prototype.insertLoaded( pageId, resourceId );
 			this.beforeChangeAvailable = false;
