@@ -94,22 +94,26 @@ var Utils = Backbone.Model.extend({
 
 		}
 
-		if( loadedNavigation.length > 0 && resourceId == 'blog' )
-		{
+		var oldNav = $('#bottom-nav-blog ul .activeNav');
+		if( oldNav ) oldNav.fadeOut('fast').removeClass('activeNav');
 
-			$('#bottom-nav-blog ul .earlier').remove();
-			$('#bottom-nav-blog ul .older').remove();
+		var type = pageId.replace( '/' + resourceId, '' ).split( '/' )[1];
+		var cid = pageId.replace( '/' + type, '' ).replace( '/', '' );
+
+		var navName = resourceId + '-' + type + '-' + cid;
+		var loaded = app.getLoadedNav( navName );
+
+		if( loaded ) $('#bottom-nav-blog ul .' + loaded).fadeIn('fast').addClass('activeNav');
+		else if( loadedNavigation.length > 0 && resourceId == 'blog' )
+		{
 
 			var older = $('#loadedNavigation .older');
 			var newer = $('#loadedNavigation .earlier');
 
-			var bar = $('#bottom-nav-blog');
-			console.log('Bar: ');
-			console.log(bar.html());
+			if( newer ) newer.appendTo('#bottom-nav-blog ul').addClass(navName).fadeIn('fast').addClass('activeNav');
+			if( older ) older.appendTo('#bottom-nav-blog ul').addClass(navName).fadeIn('fast').addClass('activeNav');
 
-			console.log(loadedNavigation);
-			if( newer ) newer.appendTo('#bottom-nav-blog ul');
-			if( older ) older.appendTo('#bottom-nav-blog ul');
+			if( newer || older ) app.loadedNav.push(navName);
 
 		}
 

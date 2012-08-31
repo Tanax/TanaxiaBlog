@@ -49,6 +49,7 @@ var Application = Backbone.Model.extend({
 	initialize: function() {
 
 		this.sections = new Sections();
+		this.loadedNav = [];
 
 	},
 
@@ -68,6 +69,16 @@ var Application = Backbone.Model.extend({
 		});
 
 		return section;
+
+	},
+
+	getLoadedNav: function( search ) {
+
+		for( var i = 0; i < this.loadedNav.length; i++ )
+			if( this.loadedNav[i].match( search ) )
+				return this.loadedNav[i];
+
+		return null;
 
 	}
 
