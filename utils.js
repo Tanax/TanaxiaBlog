@@ -100,7 +100,7 @@ var Utils = Backbone.Model.extend({
 
 			console.log('Fading out old nav');
 			oldNav.removeClass('activeNav');
-			oldNav.animate({opacity: 0}, 'slow');
+			oldNav.animate({opacity: 0}, 'slow').css({'display': 'none'});
 
 		}
 
@@ -117,7 +117,7 @@ var Utils = Backbone.Model.extend({
 
 			console.log('This navigation was already loaded, fading it in!');
 			var element = $('#bottom-nav-blog ul .' + loaded);
-			element.addClass('activeNav').animate({opacity: 1}, 'slow');
+			element.addClass('activeNav').attr('style', '').css({'opacity': 0}).animate({opacity: 1}, 'slow');
 
 		}
 		else if( loadedNavigation.length > 0 && resourceId == 'blog' )
