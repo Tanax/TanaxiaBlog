@@ -179,6 +179,8 @@ var Starter = Backbone.Model.extend({
 
 		}
 
+		console.log('Appended all bars!');
+
 	}
 
 });
