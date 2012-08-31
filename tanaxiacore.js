@@ -96,6 +96,7 @@ var Application = Backbone.Model.extend({
 				case 'post':
 					var href = link.attr('href').split('/')[link.attr('href').split('/').length - 1];
 					link.attr('href', '#/blog' + link.attr('href').replace(href, '')).removeClass('fix').addClass('fixed');
+					console.log('Fixed a post-link');
 				break;
 
 			}

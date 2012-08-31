@@ -24,6 +24,7 @@ var Starter = Backbone.Model.extend({
 		{
 
 			case 'blog': this.handleBlog( insert, hash, sections ); break;
+			case 'post': this.handleBlogPost( insert, hash ); break;
 
 		}
 
@@ -182,14 +183,6 @@ var Starter = Backbone.Model.extend({
 
 				$('#blog-pages').empty();
 				this.handleBlogPage( insert, hash, sections ); 
-
-			} break;
-
-			case 'post':
-			{
-
-				//$('#blog-posts').empty();
-				//this.handleBlogPost( insert, hash );
 
 			} break;
 
