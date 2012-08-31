@@ -42,7 +42,7 @@ var Section = Backbone.Model.extend({
 			{
 
 				changer.beforeChange( pageId, resourceId );
-				while( !changer.ready ) { console.log('Waiting for AJAX...'); }
+				while( !changer.ready ) { console.log('Waiting for Changer...'); if( changer.ready ) break; }
 
 			}
 
