@@ -115,7 +115,7 @@ var Utils = Backbone.Model.extend({
 		{
 
 			console.log('This navigation was already loaded, fading it in!');
-			$('#bottom-nav-blog ul .' + loaded).fadeIn('slow').addClass('activeNav');
+			$('#bottom-nav-blog ul .' + loaded).fadeIn('slow').addClass('activeNav').removeAttr('style');
 
 		}
 		else if( loadedNavigation.length > 0 && resourceId == 'blog' )
