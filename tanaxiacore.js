@@ -86,8 +86,9 @@ var Application = Backbone.Model.extend({
 
 	fixLinks: function() {
 
-		$('a.fix').each( function( index, link ) {
+		$('.fix').each( function( index ) {
 
+			var link = $(this);
 			console.log('Looping through link index: ' + index);
 			var type = link.href.split('/')[1];
 
