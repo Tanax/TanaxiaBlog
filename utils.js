@@ -131,14 +131,14 @@ var Utils = Backbone.Model.extend({
 			{
 
 				console.log('We have an earlier-link. Fading it in');
-				newer.appendTo('#bottom-nav-blog ul').addClass(navName).addClass('activeNav').animate({opacity: 1}, 'slow');
+				newer.css({'opacity': 0}).appendTo('#bottom-nav-blog ul').addClass(navName).addClass('activeNav').animate({opacity: 1}, 'slow');
 
 			}
 			if( older.html() ) 
 			{
 
 				console.log('We have an older-link. Fading it in');
-				older.appendTo('#bottom-nav-blog ul').addClass(navName).addClass('activeNav').animate({opacity: 1}, 'slow');
+				older.css({'opacity': 0}).appendTo('#bottom-nav-blog ul').addClass(navName).addClass('activeNav').animate({opacity: 1}, 'slow');
 
 			}
 
