@@ -85,7 +85,6 @@ var Application = Backbone.Model.extend({
 			if( link == undefined || link.attr('href') == undefined ) return;
 
 			var start = link.attr('href').replace('http://tanaxiablog.tumblr.com', '');
-
 			var type = start.split('/')[1];
 
 			switch( type )

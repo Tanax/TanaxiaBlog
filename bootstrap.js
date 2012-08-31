@@ -45,9 +45,6 @@ var setup = {
 // Create the actual section-/page-/view-classes from the setup and return the sections
 var sections = SVCreator.prototype.setup( setup );
 
-// Initialize everything
-Starter.prototype.init( sections );
-
 // Create application
 var app = new Application({ activeSect: 1 });
 // Add the sections
@@ -55,6 +52,8 @@ app.sections.add( sections );
 
 // Set page-location to the currently requested section in the URL
 Starter.prototype.setStartSection( app.sections );
+// Initialize everything
+Starter.prototype.init( sections );
 
 // Create router and view
 var router = new AppRouter();
