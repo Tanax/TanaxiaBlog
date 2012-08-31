@@ -139,6 +139,7 @@ var AppRouter = Backbone.Router.extend({
 	beforeChange: function() {
 
 		var section = app.getSection( this.resource_id );
+		if( section ) section.beforeChange( this.page_id, this.resource_id );
 
 	},
 
@@ -160,13 +161,14 @@ var AppRouter = Backbone.Router.extend({
 	makeChange: function() {
 
 		var attributes = {activePage: this.page_id};
+		this.beforeChange();
 
 		var $this = this;
 
 		app.sections.some( function( section ) {
 
-			if( section.get('name') == $this.resource_id ) 
-				section.beforeChange( $this.page_id, $this.resource_id );
+			//if( section.get('name') == $this.resource_id ) 
+			//	section.beforeChange( $this.page_id, $this.resource_id );
 
 			if( !section.validate( attributes ) )
 			{
