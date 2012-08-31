@@ -88,6 +88,7 @@ var Application = Backbone.Model.extend({
 
 		$('a.fix').each( function( index, link ) {
 
+			console.log('Looping through link index: ' + index);
 			var type = link.href.split('/')[1];
 
 			switch( type )
@@ -96,6 +97,7 @@ var Application = Backbone.Model.extend({
 				case 'page':
 				{
 
+					console.log('Found page-link!');
 					link.attr('href', '#/blog' + link.href).removeClass('fix').addClass('fixed');
 
 				} break;
