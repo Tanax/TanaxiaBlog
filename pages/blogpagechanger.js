@@ -8,10 +8,11 @@ var BlogPageChanger = Page.extend({
 		this.resourceId   = resourceId;
 		this.page 		  = pageId.replace( '/' + this.resourceId, '' ).replace( '/page', '' ).replace( '/', '' );
 		this.element_name = 'page' + this.page;
-		this.firstElement = 'div #page' + '1';
 
 		if( this.shouldAjax() ) 
 			this.handleAjax();
+
+		console.log('End of beforeChange');
 
 	},
 
@@ -27,11 +28,31 @@ var BlogPageChanger = Page.extend({
 	handleAjax: function() {
 
 		console.log('We should AJAX!');
-		this.element = $(this.firstElement).clone().attr('id', this.element_name).hide();
+		this.element = $('<div/>', { id: this.element_name, class: 'blog-page' }).hide();
+
+		/*
+		var that = this;
+		$.ajax({
+
+			url: 'http://tanaxiablog.tumblr.com/page/' + that.page,
+			success: function( data, textStatus, jqXHR ) {
+
+				// Add the new data 
+				that.processData( data );
+
+			}
+
+		});
 
 		// Do AJAX call here and insert into the element
 
-		this.insertElement();
+		this.insertElement();*/
+
+	},
+
+	processData: function( data ) {
+
+		console.log(data);
 
 	},
 
@@ -53,6 +74,7 @@ var BlogPageChanger = Page.extend({
 
 		var that = this;
 		var length = $('.blog-page').length;
+		var inserted = false;
 
 		$('.blog-page').each( function( index, div ) {
 
@@ -77,11 +99,13 @@ var BlogPageChanger = Page.extend({
 
 				if( page && section ) section.pages.add( page );
 
-				return;
+				return inserted = true;
 
 			}
 
 		});
+
+		if( !inserted ) $(this.element).appendTo('.blog-pages');
 
 	},
 

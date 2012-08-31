@@ -1,6 +1,3 @@
-// Initialize everything
-Starter.prototype.init();
-
 // Setup the sections, pages and views
 var setup = {
 
@@ -20,7 +17,7 @@ var setup = {
 		view: { options: { name: 'BlogSectionView' } },
 		changer: { options: { name: 'BlogPageChanger' } },
 		pages: {
-			__globals__: { name: 'BlogPageView', container: '#blog' },
+			/*__globals__: { name: 'BlogPageView', container: '#blog' },
 			'/blog/page/1': {
 				options: { index: 0, setActive: true },
 				view: { options: { el: '#page1' } }
@@ -28,7 +25,7 @@ var setup = {
 			'/blog/page/2': {
 				options: { index: 1 },
 				view: { options: { el: '#page2' } }
-			}
+			}*/
 		}
 	},
 
@@ -48,10 +45,14 @@ var setup = {
 // Create the actual section-/page-/view-classes from the setup and return the sections
 var sections = SVCreator.prototype.setup( setup );
 
+// Initialize everything
+Starter.prototype.init( sections );
+
 // Create application
 var app = new Application({ activeSect: 1 });
 // Add the sections
 app.sections.add( sections );
+
 // Set page-location to the currently requested section in the URL
 Starter.prototype.setStartSection( app.sections );
 

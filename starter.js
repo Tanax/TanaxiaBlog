@@ -1,7 +1,7 @@
 
 var Starter = Backbone.Model.extend({
 	
-	init: function() {
+	init: function( sections ) {
 
 		var topBlog = {
 
@@ -143,6 +143,65 @@ var Starter = Backbone.Model.extend({
 
 		if( $('.earlier').length > 0 ) $('.earlier').appendTo('#bottom-nav-blog ul');
 		if( $('.older')  .length > 0 ) $('.older')  .appendTo('#bottom-nav-blog ul');
+
+		// Get URL hash
+		var hash = window.location.hash.replace('#', '');
+		hash = AppRouter.prototype.fixPageId( hash );
+		var resource = hash.split('/')[1];
+
+		var div = $('#loadedContent');
+		var insert = div.html();
+		div.empty();
+
+		switch( resource )
+		{
+
+			case 'blog': this.handleBlog( insert, hash, sections ); break;
+
+		}
+
+	},
+
+	handleBlog: function( insert, hash, sections ) {
+
+		var type = hash.split('/')[2];
+		switch( type )
+		{
+
+			case 'page': this.handleBlogPage( insert, hash, sections ); break;
+
+		}
+
+	},
+
+	handleBlogPage: function( insert, hash, sections ) {
+
+		var page = hash.replace('/blog/page/', '');
+		var container = $('<div/>', { id: 'page' + page, class: 'blog-page' }).appendTo('#blog-pages');
+		container.html( insert );
+
+		var options = {
+			options: { index: 0 },
+			view: { options: { name: 'BlogPageView', container: '#blog', el: '#page' + page } }
+		};
+
+		var page = SVCreator.prototype.createPage( options, hash );
+		if( page.object )
+		{
+
+			sections.some( function( section ) {
+
+				if( section.get('name') == 'blog' )
+				{
+
+					section.pages.add(page.object);
+					return true;
+
+				}
+
+			});
+
+		}
 
 	},
 
