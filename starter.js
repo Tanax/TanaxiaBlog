@@ -14,6 +14,7 @@ var Starter = Backbone.Model.extend({
 		var resource = hash.split('/')[1];
 
 		// Insert loaded content from Tumblr into our page
+		/*
 		var div = $('#loadedContent');
 		var insert = div.html();
 		//div.empty();
@@ -33,7 +34,7 @@ var Starter = Backbone.Model.extend({
 
 			}
 
-		}
+		}*/
 
 	},
 

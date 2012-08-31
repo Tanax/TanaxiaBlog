@@ -1,144 +1,54 @@
 
 var BlogPageChanger = Page.extend({
-	
+
 	beforeChange: function( pageId, resourceId ) {
 
 		this.clean();
+		this.ajax = { url: 'http://tanaxiablog.tumblr.com' + pageId.replace( '/' + resourceId, '' ) };
 
-		this.resourceId   = resourceId;
-		this.page 		  = pageId.replace( '/' + this.resourceId, '' ).replace( '/page', '' ).replace( '/', '' );
-		this.element_name = 'page' + this.page;
-
-		if( this.shouldAjax() ) 
-			this.handleAjax();
-
-		else console.log('We should not AJAX since this element already exists');
-
-		console.log('End of beforeChange');
+		this.checkAjax();
 
 	},
 
-	shouldAjax: function() {
+	checkAjax: function() {
 
-		console.log('Checking if element exists: div #' + this.element_name);
-		if( $( 'div #' + this.element_name ).length != 0 )
-			return false;
-
-		return true;
+		console.log('Checking if we should AJAX current page!');
+		if( Utils.prototype.hashElement( '/blog/page/1' ) ) this.handleAjax();
 
 	},
 
 	handleAjax: function() {
 
-		console.log('We should AJAX!');
-		this.element = $('<div/>', { id: this.element_name, class: 'blog-page' }).hide();
 		$('#loadedContent').empty();
+		$('#loadedNavigation').empty();
 
 		var that = this;
 		$.ajax({
 
-			url: 'http://tanaxiablog.tumblr.com/page/' + that.page,
-			success: function( data, textStatus, jqXHR ) {
-
-				// Add the new data 
-				that.processData( data );
-
-			}
+			url: that.ajax.url,
+			success: function( data ) { that.handleData( data ); }
 
 		});
 
-
-		this.insertElement();
-		Application.prototype.fixLinks();
-
 	},
 
-	processData: function( data ) {
+	handleData: function( data ) {
 
-		var insert = $(data).filter('#loadedContent').html();
-		this.element.html( insert );
+		var content = $(data).filter('#loadedContent').html();
+		var earlier = $(data).filter('.earlier').html();
+		var older   = $(data).filter('.older').html();
 
-	},
+		$('#loadedContent').html( content );
+		$('#loadedNavigation').html( earlier + older );
 
-	insertBefore: function( page ) {
-
-		$(this.element).insertBefore( 'div #page' + page );
-		this.found = true;
-
-	},
-
-	insertAfter: function( page ) {
-
-		$(this.element).insertAfter( 'div #page' + page );
-		this.found = true;
-
-	},
-
-	insertInto: function() {
-
-		$(this.element).appendTo('.blog-pages');
-
-	},
-
-	insertElement: function() {
-
-		var that = this;
-		var length = $('.blog-page').length;
-		var inserted = false;
-
-		$('.blog-page').each( function( index, div ) {
-
-			var page = $(div).attr('id').replace( 'page', '' );
-
-			if( page > that.page ) that.insertBefore( page );
-			else if( ( index + 1 ) == length ) that.insertAfter( page );
-
-			if( that.found ) return inserted = true;
-
-		});
-
-		if( !inserted ) 
-		{
-
-			console.log('This is the first element inserted..');
-			this.insertInto();
-
-		}
-
-		this.addPage();
-		this.found = false;
-
-	},
-
-	addPage: function() {
-
-		console.log('Page id: /' + this.resourceId + '/page/' + this.page);
-		console.log('Page index: ' + ( this.page - 1 ));
-		console.log('El: ' + this.element.attr('id'));
-		var options = {
-
-			options: { id: '/' + this.resourceId + '/page/' + this.page, index: ( this.page - 1 ) },
-			view: {
-				options: { el: '#' + this.element.attr('id'), container: $('#blog'), name: 'BlogPageView' }
-			}
-		};
-
-		var page = SVCreator.prototype.createPage( options );
-		var section = app.getSection( 'blog' );
-
-		if( page.object && section ) section.pages.add( page.object );
+		Utils.prototype.fixLinks();
 
 	},
 
 	clean: function() {
 
 		console.log('Cleaning up!');
-		this.page 			= null,
-		this.element_name 	= null,
-		this.element 		= null;
-		this.firstElement	= null;
-		this.resourceId		= null;
-		this.found			= false;
+		this.ajax = null;
 
 	}
 

@@ -40,6 +40,7 @@ var Section = Backbone.Model.extend({
 			var changer = this.get('changer');
 			if( changer ) changer.beforeChange( pageId, resourceId );
 
+			Utils.prototype.insertLoaded( pageId, resourceId );
 			this.beforeChangeAvailable = false;
 
 		}
@@ -74,34 +75,6 @@ var Application = Backbone.Model.extend({
 		});
 
 		return section;
-
-	},
-
-	fixLinks: function() {
-
-		$('.fix').each( function( index ) {
-
-			var link = $(this);
-			if( link == undefined || link.attr('href') == undefined ) return;
-
-			var start = link.attr('href').replace('http://tanaxiablog.tumblr.com', '');
-			var type = start.split('/')[1];
-
-			switch( type )
-			{
-
-				case 'page': 
-					link.attr('href', '#/blog' + start).removeClass('fix').addClass('fixed'); 
-				break;
-
-				case 'post':
-					var remove = '/' + start.split('/')[start.split('/').length - 1];
-					link.attr('href', '#/blog' + start.replace(remove, '')).removeClass('fix').addClass('fixed');
-				break;
-
-			}
-
-		});
 
 	}
 
