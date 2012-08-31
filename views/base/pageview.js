@@ -7,6 +7,7 @@ var PageView = View.extend({
 
 		this.container = options.container || this.el;
 		this.queue( 'setTitle' );
+		app.fixLinks();
 
 	},
 

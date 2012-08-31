@@ -28,12 +28,6 @@ var Section = Backbone.Model.extend({
 
 	},
 
-	isResource: function( resourceId ) {
-
-		return this.get('resourceName') == resourceId;
-
-	},
-
 	forceChange: function() {
 
 		console.log('BINDCHANGE!');
@@ -55,30 +49,6 @@ var Section = Backbone.Model.extend({
 
 		}
 
-		/*
-		var changer = this.get('pageChanger');
-		if( changer && this.prevPageId != pageId ) 
-		{
-			console.log('We have a changer! Calling its beforeChange()');
-			changer.beforeChange( pageId, resourceId );
-			this.prevPageId = pageId;
-
-		}
-
-		else if( this.prevPageId == pageId ) console.log('We have already called the general beforeChange on this page!');
-
-		else console.log('We do not have a changer! Will not call general beforeChange()');
-
-		console.log('Searching for page: ' + pageId);
-		var page = this.pages.get( pageId )
-		if( page ) 
-		{
-
-			console.log('We have a matching page! Calling its beforeChange()');
-			page.beforeChange( pageId, resourceId );
-
-		}*/
-
 	}
 
 });
@@ -92,16 +62,6 @@ var Application = Backbone.Model.extend({
 		this.sections = new Sections();
 		//this.fixLinks();
 		//this.disableLinks();
-
-	},
-
-	disableLinks: function() {
-
-		$('a.noClick').click( function( e ) {
-
-			e.preventDefault();
-
-		});
 
 	},
 
@@ -121,6 +81,28 @@ var Application = Backbone.Model.extend({
 		});
 
 		return section;
+
+	},
+
+	fixLinks: function() {
+
+		$('a.fix').each( function( index, link ) {
+
+			var type = link.href.split('/')[1];
+
+			switch( type )
+			{
+
+				case 'page':
+				{
+
+					link.attr('href', '#/blog' + link.href).removeClass('fix').addClass('fixed');
+
+				} break;
+
+			}
+
+		});
 
 	}
 
