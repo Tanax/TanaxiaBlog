@@ -106,9 +106,9 @@ var BlogPageChanger = Page.extend({
 
 		var options = {
 
-			options: { id: '/' + that.resourceId + '/page/' + that.page, index: ( that.page - 1 ) },
+			options: { id: '/' + this.resourceId + '/page/' + this.page, index: ( this.page - 1 ) },
 			view: {
-				options: { el: '#' + that.element.attr('id'), container: $('#blog'), name: 'BlogPageView' }
+				options: { el: '#' + this.element.attr('id'), container: $('#blog'), name: 'BlogPageView' }
 			}
 		};
 
