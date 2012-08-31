@@ -12,12 +12,15 @@ var BlogPageChanger = Page.extend({
 		if( this.shouldAjax() ) 
 			this.handleAjax();
 
+		else console.log('We should not AJAX since this element already exists');
+
 		console.log('End of beforeChange');
 
 	},
 
 	shouldAjax: function() {
 
+		console.log('Checking if element exists: div #' + this.element_name);
 		if( $( 'div #' + this.element_name ).length != 0 )
 			return false;
 
@@ -110,12 +113,14 @@ var BlogPageChanger = Page.extend({
 
 	clean: function() {
 
+		console.log('Cleaning up!');
 		this.page 			= null,
 		this.element_name 	= null,
 		this.element 		= null;
 		this.firstElement	= null;
 		this.resourceId		= null;
 		this.found			= false;
+		$('#loadedContent').empty();
 
 	}
 
