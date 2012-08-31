@@ -95,25 +95,57 @@ var Utils = Backbone.Model.extend({
 		}
 
 		var oldNav = $('#bottom-nav-blog ul .activeNav');
-		if( oldNav ) oldNav.fadeOut('fast').removeClass('activeNav');
+		if( oldNav ) 
+		{
+
+			console.log('Fading out old nav');
+			oldNav.fadeOut('slow').removeClass('activeNav');
+
+		}
 
 		var type = pageId.replace( '/' + resourceId, '' ).split( '/' )[1];
 		var cid = pageId.replace( '/' + type, '' ).replace( '/', '' );
 
 		var navName = resourceId + '-' + type + '-' + cid;
+		console.log('Checking if we have loaded nav: ' + navName);
 		var loaded = app.getLoadedNav( navName );
 
-		if( loaded ) $('#bottom-nav-blog ul .' + loaded).fadeIn('fast').addClass('activeNav');
+		if( loaded ) 
+		{
+
+			console.log('This navigation was already loaded, fading it in!');
+			$('#bottom-nav-blog ul .' + loaded).fadeIn('slow').addClass('activeNav');
+
+		}
 		else if( loadedNavigation.length > 0 && resourceId == 'blog' )
 		{
 
+			console.log('This navigation was not loaded, loading it!');
 			var older = $('#loadedNavigation .older');
 			var newer = $('#loadedNavigation .earlier');
 
-			if( newer ) newer.appendTo('#bottom-nav-blog ul').addClass(navName).fadeIn('fast').addClass('activeNav');
-			if( older ) older.appendTo('#bottom-nav-blog ul').addClass(navName).fadeIn('fast').addClass('activeNav');
+			if( newer ) 
+			{
 
-			if( newer || older ) app.loadedNav.push(navName);
+				console.log('We have an earlier-link. Fading it in');
+				newer.appendTo('#bottom-nav-blog ul').addClass(navName).fadeIn('slow').addClass('activeNav');
+
+			}
+			if( older ) 
+			{
+
+				console.log('We have an older-link. Fading it in');
+				older.appendTo('#bottom-nav-blog ul').addClass(navName).fadeIn('slow').addClass('activeNav');
+
+			}
+
+			if( newer || older ) 
+			{
+
+				console.log('Pushing navName to loadedNav: ' + navName);
+				app.loadedNav.push(navName);
+
+			}
 
 		}
 
