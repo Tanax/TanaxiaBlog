@@ -90,7 +90,8 @@ var Application = Backbone.Model.extend({
 
 			var link = $(this);
 			console.log('Looping through link index: ' + index);
-			var type = link.href.split('/')[1];
+			var type = link.attr('href')
+			if( type !== undefined ) type = type.split('/')[1];
 
 			switch( type )
 			{
