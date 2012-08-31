@@ -5,7 +5,7 @@ var BlogPageView = PageView.extend({
 
 		this.init();
 
-		console.log('Woho');
+		console.log('Woho from view belonging to: ' + this.model.id);
 
 		// If change from antoher page in the same sect
 		if( oldPage ) 

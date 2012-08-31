@@ -32,6 +32,7 @@ var BlogPageChanger = Page.extend({
 
 		console.log('We should AJAX!');
 		this.element = $('<div/>', { id: this.element_name, class: 'blog-page' }).hide();
+		$('#loadedContent').empty();
 
 		var that = this;
 		$.ajax({
@@ -46,7 +47,7 @@ var BlogPageChanger = Page.extend({
 
 		});
 
-		
+
 		this.insertElement();
 		Application.prototype.fixLinks();
 
@@ -112,7 +113,7 @@ var BlogPageChanger = Page.extend({
 	addPage: function() {
 
 		console.log('Page id: /' + this.resourceId + '/page/' + this.page);
-		console.log('Page index: ' + this.page - 1);
+		console.log('Page index: ' + ( this.page - 1 ));
 		console.log('El: ' + this.element.attr('id'));
 		var options = {
 

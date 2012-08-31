@@ -20,11 +20,18 @@ var Starter = Backbone.Model.extend({
 
 		// Handle the loaded content differently depending on what type
 		// of resource we want to load
-		switch( resource )
+		if( insert.length > 0 )
 		{
 
-			case 'blog': this.handleBlog( insert, hash, sections ); break;
-			case 'post': this.handleBlogPost( insert, hash ); break;
+			console.log('loadedContent was not empty!');
+
+			switch( resource )
+			{
+
+				case 'blog': this.handleBlog( insert, hash, sections ); break;
+				case 'post': this.handleBlogPost( insert, hash ); break;
+
+			}
 
 		}
 
