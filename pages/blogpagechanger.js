@@ -117,7 +117,7 @@ var BlogPageChanger = Page.extend({
 
 		if( page.object && section ) section.pages.add( page.object );
 
-	}
+	},
 
 	clean: function() {
 
