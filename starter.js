@@ -168,7 +168,13 @@ var Starter = Backbone.Model.extend({
 		switch( type )
 		{
 
-			case 'page': this.handleBlogPage( insert, hash, sections ); break;
+			case 'page': 
+			{
+
+				$('#blog-pages').empty();
+				this.handleBlogPage( insert, hash, sections ); 
+
+			} break;
 
 		}
 

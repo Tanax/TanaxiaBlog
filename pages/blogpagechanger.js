@@ -30,7 +30,6 @@ var BlogPageChanger = Page.extend({
 		console.log('We should AJAX!');
 		this.element = $('<div/>', { id: this.element_name, class: 'blog-page' }).hide();
 
-		/*
 		var that = this;
 		$.ajax({
 
@@ -46,6 +45,7 @@ var BlogPageChanger = Page.extend({
 
 		// Do AJAX call here and insert into the element
 
+		/*
 		this.insertElement();*/
 
 	},
