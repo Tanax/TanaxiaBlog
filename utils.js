@@ -95,7 +95,7 @@ var Utils = Backbone.Model.extend({
 		}
 
 		var oldNav = $('#bottom-nav-blog ul .activeNav');
-		if( oldNav ) 
+		if( oldNav.html().length > 0 ) 
 		{
 
 			console.log('Fading out old nav');
@@ -103,8 +103,9 @@ var Utils = Backbone.Model.extend({
 
 		}
 
-		var type = pageId.replace( '/' + resourceId, '' ).split( '/' )[1];
-		var cid = pageId.replace( '/' + type, '' ).replace( '/', '' );
+		var start = pageId.replace( '/' + resourceId, '' );
+		var type = start.split( '/' )[1];
+		var cid = start.replace( '/' + type, '' ).replace( '/', '' );
 
 		var navName = resourceId + '-' + type + '-' + cid;
 		console.log('Checking if we have loaded nav: ' + navName);
@@ -124,14 +125,14 @@ var Utils = Backbone.Model.extend({
 			var older = $('#loadedNavigation .older');
 			var newer = $('#loadedNavigation .earlier');
 
-			if( newer ) 
+			if( newer.html().length > 0 ) 
 			{
 
 				console.log('We have an earlier-link. Fading it in');
 				newer.appendTo('#bottom-nav-blog ul').addClass(navName).fadeIn('slow').addClass('activeNav');
 
 			}
-			if( older ) 
+			if( older.html().length > 0 ) 
 			{
 
 				console.log('We have an older-link. Fading it in');
@@ -139,7 +140,7 @@ var Utils = Backbone.Model.extend({
 
 			}
 
-			if( newer || older ) 
+			if( newer.html().length > 0 || older.html().length > 0 ) 
 			{
 
 				console.log('Pushing navName to loadedNav: ' + navName);
