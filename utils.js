@@ -106,8 +106,12 @@ var Utils = Backbone.Model.extend({
 			$('#bottom-nav-blog ul .earlier').remove();
 			$('#bottom-nav-blog ul .older').remove();
 
+			var older = $('#loadedNavigation .older');
+			var newer = $('#loadedNavigation .earlier');
+
 			console.log(loadedNavigation);
-			$('#bottom-nav-blog ul').append( loadedNavigation );
+			if( newer ) newer.appendTo('#bottom-nav-blog ul');
+			if( older ) newer.appendTo('#bottom-nav-blog ul');
 
 		}
 
