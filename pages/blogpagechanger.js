@@ -24,20 +24,13 @@ var BlogPageChanger = Page.extend({
 
 		var that = this;
 		this.ready = false;
-		var request = $.ajax({
+		$.ajax({
 
 			url: that.ajax.url,
+			async: false,
 			success: function( data ) { that.handleData( data ); }
 
 		});
-
-		console.log('Beginning When');
-		$.when( request() ).done( function() {
-
-			console.log('AJAX-Request done!');
-
-		});
-		console.log('Ending When');
 
 	},
 
