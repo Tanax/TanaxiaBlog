@@ -158,7 +158,7 @@ var Utils = Backbone.Model.extend({
 			// If the current div is the last div in the container, 
 			// we should insert our new div after the current div
 			if( ( index + 1 ) == length && cid < data.page.cid ) 
-				return !inserted = that.insertAfter( id, data );
+				return !(inserted = that.insertAfter( id, data ));
 
 			// If the current div-id is higher than the ID we want to insert, 
 			// we should insert our new div before the current div
@@ -166,7 +166,7 @@ var Utils = Backbone.Model.extend({
 			{
 
 				console.log('Inserting element before: ' + cid);
-				return !inserted = that.insertBefore( id, data );
+				return !(inserted = that.insertBefore( id, data ));
 
 			}
 
