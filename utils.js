@@ -164,12 +164,9 @@ var Utils = Backbone.Model.extend({
 			{
 
 				console.log('Inserting element before: ' + cid);
-				that.insertBefore( id, data );
+				return inserted = that.insertBefore( id, data );
 
 			}
-
-			// If our new div has been inserted, return true to exit loop
-			if( $( '#' + data.element.name ).length > 0 ) return inserted = true;
 
 		});
 
@@ -186,6 +183,11 @@ var Utils = Backbone.Model.extend({
 	insertBefore: function( id, data ) {
 
 		$(data.element.object).insertBefore( '#' + id );
+
+		// If our new div has been inserted, return true to exit loop
+		console.log('Checking if element has been inserted: ' + $( '#' + data.element.name ).length);
+		if( $( '#' + data.element.name ).length > 0 ) return true;
+		return false;
 
 	},
 
