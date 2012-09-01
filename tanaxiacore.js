@@ -25,13 +25,13 @@ var Section = Backbone.Model.extend({
 
 	forceChange: function() { view.forceChange(); },
 
-	beforeChange: function( pageId, resourceId ) {
+	beforeChange: function( pageId, resourceId, fromStarter ) {
 
 		if( this.beforeChangeAvailable )
 		{
 
 			var changer = this.get('changer');
-			if( changer ) changer.beforeChange( pageId, resourceId );
+			if( changer ) changer.beforeChange( pageId, resourceId, fromStarter );
 
 			Utils.prototype.insertLoaded( pageId, resourceId );
 			this.beforeChangeAvailable = false;

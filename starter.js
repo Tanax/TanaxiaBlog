@@ -22,7 +22,7 @@ var Starter = Backbone.Model.extend({
 		sections.some( function( section ) {
 
 			if( section.get('name') == resource ) 
-				section.beforeChange( hash, resource );
+				section.beforeChange( hash, resource, true );
 
 			// Check if current section has the current page
 			if( !section.validate( options ) )
