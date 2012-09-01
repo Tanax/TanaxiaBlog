@@ -23,7 +23,12 @@ var BlogPageView = PageView.extend({
 			}
 
 			else if( oldPage.view instanceof BlogPostView )
+			{
+
+				$('#blog .page-header p.back').fadeOut('fast');
 				this.show( 'fadeIn', animate );
+
+			}
 
 		}
 
@@ -57,7 +62,12 @@ var BlogPageView = PageView.extend({
 			}
 
 			else if( newPage.view instanceof BlogPostView )
+			{
+
+				$('#blog .page-header p.back').attr('href', '#' + this.model.id).fadeIn('fast');
 				this.show( 'fadeOut', animate );
+
+			}
 		}
 
 	},
