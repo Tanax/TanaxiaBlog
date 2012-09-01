@@ -25,7 +25,7 @@ var BlogPageView = PageView.extend({
 			else if( oldPage.view instanceof BlogPostView )
 			{
 
-				$('#blog .page-header p.back a').fadeOut('fast');
+				$('#blog .page-header p.back').fadeOut('fast');
 				this.show( 'fadeIn', animate );
 
 			}
