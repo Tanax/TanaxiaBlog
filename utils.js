@@ -160,7 +160,13 @@ var Utils = Backbone.Model.extend({
 
 			// If the current div-id is higher than the ID we want to insert, 
 			// we should insert our new div before the current div
-			if( cid > data.page.cid ) that.insertBefore( id, data );
+			if( cid > data.page.cid )
+			{
+
+				console.log('Inserting element before: ' + cid);
+				that.insertBefore( id, data );
+
+			}
 
 			// If our new div has been inserted, return true to exit loop
 			if( $( '#' + data.element.name ).length > 0 ) return inserted = true;
