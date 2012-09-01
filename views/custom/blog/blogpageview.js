@@ -64,7 +64,7 @@ var BlogPageView = PageView.extend({
 			else if( newPage.view instanceof BlogPostView )
 			{
 
-				$('#blog .page-header p.back').fadeIn('fast').filter('a').attr('href', '#' + this.model.id);
+				$('#blog .page-header p.back').fadeIn('fast').find('a').attr('href', '#' + this.model.id);
 				this.show( 'fadeOut', animate );
 
 			}
