@@ -206,7 +206,7 @@ var Utils = Backbone.Model.extend({
 		{
 
 			case 'page': options.index = ( data.page.cid - 1 ); break;
-			case 'post': options.index = { data.page.cid }; break;
+			case 'post': options.index = data.page.cid; break;
 
 		}
 
