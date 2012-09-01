@@ -137,16 +137,17 @@ var Utils = Backbone.Model.extend({
 
 	insertIntoPage: function( data ) {
 
-		var length = $('.' + data.page.container).length;
+		var length = $('.' + data.element.class).length;
 		var inserted = false;
 		var that = this;
+
+		console.log('Length: ' + length);
 
 		$( '.' + data.element.class ).each( function( index, div ) {
 
 			// If the current div is undefined, jump to next div
 			if( div == undefined ) return;
 
-			console.log('Length: ' + length);
 			console.log('Index: ' + index);
 
 			// Get the ID from the current div
@@ -156,10 +157,8 @@ var Utils = Backbone.Model.extend({
 
 			// If the current div is the last div in the container, 
 			// we should insert our new div after the current div
-			if( ( index + 1 ) == length ) that.insertAfter( id, data );
-
-			// If the current div-id is less than the ID we want to insert, jump to next div
-			if( cid < data.page.cid ) return;
+			if( ( index + 1 ) == length && cid < data.page.cid ) 
+				return inserted = that.insertAfter( id, data );
 
 			// If the current div-id is higher than the ID we want to insert, 
 			// we should insert our new div before the current div
@@ -180,6 +179,11 @@ var Utils = Backbone.Model.extend({
 	insertAfter: function( id, data ) {
 
 		$(data.element.object).insertAfter( '#' + id );
+
+		// If our new div has been inserted, return true to exit loop
+		console.log('Checking if element has been inserted: ' + $( '#' + data.element.name ).length);
+		if( $( '#' + data.element.name ).length > 0 ) return true;
+		return false;
 
 	},
 
