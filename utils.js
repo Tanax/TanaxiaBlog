@@ -100,7 +100,12 @@ var Utils = Backbone.Model.extend({
 
 			console.log('Fading out old nav');
 			oldNav.removeClass('activeNav');
-			oldNav.animate({opacity: 0}, 'slow').css({'display': 'none'});
+			oldNav.animate({opacity: 0}, 'slow', function() { 
+
+				console.log('We have faded out, now display none');
+				oldNav.css({'display': 'none'}); 
+
+			});
 
 		}
 
