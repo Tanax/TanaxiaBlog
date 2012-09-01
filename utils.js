@@ -50,6 +50,10 @@ var Utils = Backbone.Model.extend({
 		var loadedContent = $('#loadedContent').html();
 		var loadedNavigation = $('#loadedNavigation').html();
 
+		var start = pageId.replace( '/' + resourceId, '' );
+		var type = start.split( '/' )[1];
+		var cid = start.replace( '/' + type, '' ).replace( '/', '' );
+
 		if( loadedContent.length > 0 && this.hashElement() )
 		{
 
@@ -59,13 +63,13 @@ var Utils = Backbone.Model.extend({
 				section: { name: resourceId },
 				page: { 
 					id_full: pageId, 
-					id_min: pageId.replace( '/' + resourceId, '' )
+					id_min: start
 				},
 				element: {}
 			};
 
-			data.page.type = data.page.id_min.split( '/' )[1];
-			data.page.cid = data.page.id_min.replace( '/' + data.page.type, '' ).replace( '/', '' );
+			data.page.type = type;
+			data.page.cid = cid;
 			data.page.container = this.getContainerName( data );
 
 			data.element.name = data.page.type + data.page.cid;
@@ -95,65 +99,22 @@ var Utils = Backbone.Model.extend({
 		}
 
 		var oldNav = $('#bottom-nav-blog ul .activeNav');
-		if( oldNav.html() ) 
-		{
-
-			console.log('Fading out old nav');
-			oldNav.removeClass('activeNav');
-			oldNav.animate({opacity: 0}, 'slow', function() { 
-
-				console.log('We have faded out, now display none');
-				oldNav.css({'display': 'none'}); 
-
-			});
-
-		}
-
-		var start = pageId.replace( '/' + resourceId, '' );
-		var type = start.split( '/' )[1];
-		var cid = start.replace( '/' + type, '' ).replace( '/', '' );
+		if( oldNav.html() ) oldNav.removeClass('activeNav').animate({opacity: 0}, 'slow', function() { oldNav.css({'display': 'none'}); });
 
 		var navName = resourceId + '-' + type + '-' + cid;
-		console.log('Checking if we have loaded nav: ' + navName);
 		var loaded = app.getLoadedNav( navName );
 
-		if( loaded ) 
-		{
-
-			console.log('This navigation was already loaded, fading it in!');
-			var element = $('#bottom-nav-blog ul .' + loaded);
-			element.addClass('activeNav').attr('style', '').css({'opacity': 0}).animate({opacity: 1}, 'slow');
-
-		}
+		if( loaded ) $('#bottom-nav-blog ul .' + loaded).addClass('activeNav').attr('style', '').css({'opacity': 0}).animate({opacity: 1}, 'slow');
 		else if( loadedNavigation.length > 0 && resourceId == 'blog' )
 		{
 
-			console.log('This navigation was not loaded, loading it!');
 			var older = $('#loadedNavigation .older');
 			var newer = $('#loadedNavigation .earlier');
 
-			if( newer.html() ) 
-			{
+			if( newer.html() ) newer.css({'opacity': 0}).appendTo('#bottom-nav-blog ul').addClass(navName).addClass('activeNav').animate({opacity: 1}, 'slow');
+			if( older.html() ) older.css({'opacity': 0}).appendTo('#bottom-nav-blog ul').addClass(navName).addClass('activeNav').animate({opacity: 1}, 'slow');
 
-				console.log('We have an earlier-link. Fading it in');
-				newer.css({'opacity': 0}).appendTo('#bottom-nav-blog ul').addClass(navName).addClass('activeNav').animate({opacity: 1}, 'slow');
-
-			}
-			if( older.html() ) 
-			{
-
-				console.log('We have an older-link. Fading it in');
-				older.css({'opacity': 0}).appendTo('#bottom-nav-blog ul').addClass(navName).addClass('activeNav').animate({opacity: 1}, 'slow');
-
-			}
-
-			if( newer.html() || older.html() ) 
-			{
-
-				console.log('Pushing navName to loadedNav: ' + navName);
-				app.loadedNav.push(navName);
-
-			}
+			if( newer.html() || older.html() ) app.loadedNav.push(navName);
 
 		}
 
