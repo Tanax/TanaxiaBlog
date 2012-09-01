@@ -23,7 +23,6 @@ var BlogPageChanger = Page.extend({
 		$('#loadedNavigation').empty();
 
 		var that = this;
-		this.ready = false;
 		$.ajax({
 
 			url: that.ajax.url,
@@ -41,9 +40,6 @@ var BlogPageChanger = Page.extend({
 
 		$('#loadedContent').html( content );
 		$('#loadedNavigation').html( navigation );
-
-		Utils.prototype.fixLinks();
-		this.ready = true;
 
 	},
 

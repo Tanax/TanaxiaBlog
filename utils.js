@@ -105,7 +105,7 @@ var Utils = Backbone.Model.extend({
 		var loaded = app.getLoadedNav( navName );
 
 		if( loaded ) $('#bottom-nav-blog ul .' + loaded).addClass('activeNav').attr('style', '').css({'opacity': 0}).animate({opacity: 1}, 'slow');
-		else if( loadedNavigation.length > 0 && resourceId == 'blog' )
+		else if( loadedNavigation.length > 0 && resourceId == 'blog' && type == 'page' )
 		{
 
 			var older = $('#loadedNavigation .older');
@@ -145,6 +145,9 @@ var Utils = Backbone.Model.extend({
 
 			// If the current div is undefined, jump to next div
 			if( div == undefined ) return;
+
+			console.log('Length: ' + length);
+			console.log('Index: ' + index);
 
 			// Get the ID from the current div
 			var id = $(div).attr('id');
