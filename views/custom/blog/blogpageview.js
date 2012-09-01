@@ -5,13 +5,9 @@ var BlogPageView = PageView.extend({
 
 		this.init();
 
-		console.log('Woho from view belonging to: ' + this.model.id);
-
 		// If change from antoher page in the same sect
 		if( oldPage ) 
 		{
-
-			console.log('OLDPAGE!');
 
 			// Animate if sect has changed and app has inited
 			var animate = !options.sectChanged && app.inited;
@@ -85,7 +81,6 @@ var BlogPageView = PageView.extend({
 
 		//var $el = $(this.el);
 		var $this = this;
-		console.log('El: ' + this.el);
 
 		if( animate ) 
 		{
