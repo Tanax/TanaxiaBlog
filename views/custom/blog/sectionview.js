@@ -10,9 +10,9 @@ var BlogSectionView = SectView.extend({
 	hide: function( next ) {
 
 		var page = this.model.get( 'activePage' );
-		var link = Config.url_full + '#' + page;
+		var link = '#' + page;
 
-		$('.contact-back, .message-back').attr('href', link);
+		$('.contact-back a, .message-back a').attr('href', link);
 		// Change links if we have more pages in current section
 		// Disable links: app.disableLinks();
 
