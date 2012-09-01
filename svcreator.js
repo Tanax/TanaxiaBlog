@@ -88,6 +88,7 @@ var SVCreator = Backbone.Model.extend({
 		delete options.setActive;
 
 		var page = new Page( options );
+		console.log('Created a page for: ' + page.id);
 
 		if( attributes.view ) this.createView( attributes.view, page, viewGlobals );
 		return { object: page, activePage: activePage };
@@ -109,6 +110,7 @@ var SVCreator = Backbone.Model.extend({
 		var name = view.options.name;
 		delete view.options.name;
 
+		console.log('Created a view: ' + name);
 		return new window[name]( view.options );
 
 	},

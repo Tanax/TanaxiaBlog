@@ -141,14 +141,10 @@ var Utils = Backbone.Model.extend({
 		var inserted = false;
 		var that = this;
 
-		console.log('Length: ' + length);
-
 		$( '.' + data.element.class ).each( function( index, div ) {
 
 			// If the current div is undefined, jump to next div
 			if( div == undefined ) return;
-
-			console.log('Index: ' + index);
 
 			// Get the ID from the current div
 			var id = $(div).attr('id');
@@ -162,13 +158,8 @@ var Utils = Backbone.Model.extend({
 
 			// If the current div-id is higher than the ID we want to insert, 
 			// we should insert our new div before the current div
-			if( cid > data.page.cid )
-			{
-
-				console.log('Inserting element before: ' + cid);
+			if( cid > data.page.cid ) 
 				return !(inserted = that.insertBefore( id, data ));
-
-			}
 
 		});
 
@@ -181,7 +172,6 @@ var Utils = Backbone.Model.extend({
 		$(data.element.object).insertAfter( '#' + id );
 
 		// If our new div has been inserted, return true to exit loop
-		console.log('Checking if element has been inserted: ' + $( '#' + data.element.name ).length);
 		if( $( '#' + data.element.name ).length > 0 ) return true;
 		return false;
 
@@ -192,7 +182,6 @@ var Utils = Backbone.Model.extend({
 		$(data.element.object).insertBefore( '#' + id );
 
 		// If our new div has been inserted, return true to exit loop
-		console.log('Checking if element has been inserted: ' + $( '#' + data.element.name ).length);
 		if( $( '#' + data.element.name ).length > 0 ) return true;
 		return false;
 
@@ -217,6 +206,7 @@ var Utils = Backbone.Model.extend({
 		{
 
 			case 'page': options.index = ( data.page.cid - 1 ); break;
+			case 'post': options.index = { data.page.cid }; break;
 
 		}
 

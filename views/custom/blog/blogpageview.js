@@ -22,6 +22,9 @@ var BlogPageView = PageView.extend({
 
 			}
 
+			else if( oldPage.view instanceof BlogPostView )
+				this.show( 'fadeIn', animate );
+
 		}
 
 		else 
@@ -52,6 +55,9 @@ var BlogPageView = PageView.extend({
 				this.hide( 'slideOut', side, animate );
 
 			}
+
+			else if( newPage.view instanceof BlogPostView )
+				this.show( 'fadeOut', animate );
 		}
 
 	},
