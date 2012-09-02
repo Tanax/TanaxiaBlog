@@ -88,8 +88,9 @@ var Starter = Backbone.Model.extend({
 						{
 							item: {
 								class: 'about navpage-blog',
-								url: '#/about', 
-								text: 'About' 
+								url: '', 
+								text: '<del>About</del>',
+								onclick: 'alert("Coming soon"); return false;'
 							}
 						}
 					]
