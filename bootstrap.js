@@ -4,6 +4,7 @@ var setup = {
 	message: {
 		options: { id: 0 },
 		view: { options: { name: 'MessageSectionView' } },
+		changer: { options: { name: 'MessageChanger' } },
 		pages: {
 			'/message': {
 				options: { setActive: true },
@@ -38,7 +39,9 @@ var setup = {
 				view: { options: { name: 'AboutView', el: '#about' } }
 			}
 		}
-	}
+	},
+
+	__view__: { options: { name: 'BlogPageNavigationView', el: '#bottom-nav-blog' } }
 
 };
 

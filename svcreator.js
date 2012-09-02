@@ -23,7 +23,17 @@ var SVCreator = Backbone.Model.extend({
 		for( var current in attributes )
 		{
 
-			var section = this.createSection( attributes[current], current );
+			var data = attributes[current];
+			
+			if( current == '__view__' )
+			{
+
+				this.createView( data );
+				continue;
+
+			}
+
+			var section = this.createSection( data, current );
 			if( section ) sections.push( section.object );
 
 		}
