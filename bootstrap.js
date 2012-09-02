@@ -45,6 +45,8 @@ var setup = {
 
 };
 
+console.log($('#ajaxCalls').html());
+
 // Create the actual section-/page-/view-classes from the setup and return the sections
 var sections = SVCreator.prototype.setup( setup );
 
@@ -57,8 +59,6 @@ app.sections.add( sections );
 Starter.prototype.init( sections );
 // Set page-location to the currently requested section in the URL
 Starter.prototype.setStartSection( app.sections );
-
-Starter.prototype.getTumblrControls();
 
 // Create router and view
 var router = new AppRouter();
