@@ -122,8 +122,10 @@ var Utils = Backbone.Model.extend({
 		if( ajaxCalls && ajaxCalls.filter('a') )
 		{
 
-			var link = ajaxCalls.filter('a').attr('href');
+			var link = ajaxCalls.find('a').attr('href');
 			console.log(link);
+			console.log(ajaxCalls.html());
+			/*
 			$.ajax({
 				url: link,
 				success: function( data ) {
@@ -131,7 +133,7 @@ var Utils = Backbone.Model.extend({
 					console.log(data);
 
 				}
-			});
+			});*/
 
 		}
 
