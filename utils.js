@@ -49,7 +49,7 @@ var Utils = Backbone.Model.extend({
 
 		var loadedContent = $('#loadedContent').html();
 		var loadedNavigation = $('#loadedNavigation').html();
-		var ajaxCalls = $('#ajaxCalls').html();
+		var ajaxCalls = $('#ajaxCalls');
 
 		var start = pageId.replace( '/' + resourceId, '' );
 		var type = start.split( '/' )[1];
