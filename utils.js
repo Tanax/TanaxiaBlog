@@ -49,7 +49,7 @@ var Utils = Backbone.Model.extend({
 
 		var loadedContent = $('#loadedContent').html();
 		var loadedNavigation = $('#loadedNavigation').html();
-		var ajaxCalls = $('#ajaxCalls');
+		var ajaxCalls = $('#ajaxCalls').html();
 
 		var start = pageId.replace( '/' + resourceId, '' );
 		var type = start.split( '/' )[1];
@@ -119,11 +119,11 @@ var Utils = Backbone.Model.extend({
 
 		}
 
-		console.log(ajaxCalls);
-		if( ajaxCalls && ajaxCalls.filter('a') && ajaxCalls.filter('a').length > 0 )
+		if( ajaxCalls && ajaxCalls.filter('a') )
 		{
 
 			var link = ajaxCalls.filter('a').attr('href');
+			console.log(link);
 			$.ajax({
 				url: link,
 				success: function( data ) {

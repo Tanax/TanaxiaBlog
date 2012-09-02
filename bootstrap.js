@@ -45,8 +45,6 @@ var setup = {
 
 };
 
-console.log($('#ajaxCalls').html());
-
 // Create the actual section-/page-/view-classes from the setup and return the sections
 var sections = SVCreator.prototype.setup( setup );
 
