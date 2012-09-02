@@ -119,6 +119,7 @@ var Utils = Backbone.Model.extend({
 
 		}
 
+		alert(ajaxCalls);
 		if( ajaxCalls.filter('a').length > 0 )
 		{
 
