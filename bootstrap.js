@@ -58,6 +58,8 @@ Starter.prototype.init( sections );
 // Set page-location to the currently requested section in the URL
 Starter.prototype.setStartSection( app.sections );
 
+Starter.prototype.getTumblrControls();
+
 // Create router and view
 var router = new AppRouter();
 // Call its force change to force a change-call in the router

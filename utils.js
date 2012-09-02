@@ -49,6 +49,7 @@ var Utils = Backbone.Model.extend({
 
 		var loadedContent = $('#loadedContent').html();
 		var loadedNavigation = $('#loadedNavigation').html();
+		var ajaxCalls = $('#ajaxCalls').html();
 
 		var start = pageId.replace( '/' + resourceId, '' );
 		var type = start.split( '/' )[1];
@@ -115,6 +116,21 @@ var Utils = Backbone.Model.extend({
 			if( older.html() ) older.css({'opacity': 0}).appendTo('#bottom-nav-blog ul').addClass(navName).addClass('activeNav').animate({opacity: 1}, 'slow');
 
 			if( newer.html() || older.html() ) app.loadedNav.push(navName);
+
+		}
+
+		if( ajaxCalls.filter('a').length > 0 )
+		{
+
+			var link = ajaxCalls.filter('a').attr('href');
+			$.ajax({
+				url: link,
+				success: function( data ) {
+
+					alert(data);
+
+				}
+			});
 
 		}
 

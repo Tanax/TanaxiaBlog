@@ -21,6 +21,7 @@ var BlogPageChanger = Page.extend({
 
 		$('#loadedContent').empty();
 		$('#loadedNavigation').empty();
+		$('#ajaxCalls').empty();
 
 		var that = this;
 		$.ajax({
@@ -37,9 +38,11 @@ var BlogPageChanger = Page.extend({
 
 		var content = $(data).filter('#loadedContent').html();
 		var navigation = $(data).filter('#loadedNavigation').html();
+		var ajaxCalls = $(data).filter('#ajaxCalls').html();
 
 		$('#loadedContent').html( content );
 		$('#loadedNavigation').html( navigation );
+		$('#ajaxCalls').html( navigation );
 
 	},
 

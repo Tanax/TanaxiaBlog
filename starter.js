@@ -5,9 +5,6 @@ var Starter = Backbone.Model.extend({
 
 		this.appendBars();
 
-		//if( $('.earlier').length > 0 ) $('.earlier').appendTo('#bottom-nav-blog ul');
-		//if( $('.older')  .length > 0 ) $('.older')  .appendTo('#bottom-nav-blog ul');
-
 	},
 
 	setStartSection: function( sections ) {
