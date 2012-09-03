@@ -1,3 +1,5 @@
+document.domain = 'http://www.tumblr.com';
+
 // Setup the sections, pages and views
 var setup = {
 
