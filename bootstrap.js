@@ -1,5 +1,3 @@
-document.domain = 'assets.tumblr.com';
-
 // Setup the sections, pages and views
 var setup = {
 
