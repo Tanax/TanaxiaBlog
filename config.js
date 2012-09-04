@@ -1,3 +1,4 @@
+
 var Configuration = Backbone.Model.extend();
 var Config = new Configuration();
 

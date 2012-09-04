@@ -50,6 +50,7 @@ var Application = Backbone.Model.extend({
 
 		this.sections = new Sections();
 		this.loadedNav = [];
+		this.views = [];
 
 	},
 
@@ -79,6 +80,14 @@ var Application = Backbone.Model.extend({
 				return this.loadedNav[i];
 
 		return null;
+
+	},
+
+	getView: function( name ) {
+
+		for( var i = 0; i < this.views.length; i++ )
+			if( this.views[i].name.match( name ) )
+				return this.views[i].object;
 
 	}
 

@@ -4,11 +4,10 @@ var Utils = Backbone.Model.extend({
 	hashElement: function( hashExclude ) {
 
 		var result = false;
-		var hash = AppRouter.prototype.fixPageId( window.location.hash.replace('#', '') );
-		var resource = hash.split('/')[1];
+		var hash = nexus.getHash();
 
-		var remove = '/' + resource + '/';
-		var div = '#' + hash.replace( remove, '' ).replace( '/', '' );
+		var remove = '/' + hash.resource + '/';
+		var div = '#' + hash.full.replace( remove, '' ).replace( '/', '' );
 
 		if( $(div).length <= 0 ) result = true;
 		if( hashExclude && hash == hashExclude ) result = false;

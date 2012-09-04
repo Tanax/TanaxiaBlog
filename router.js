@@ -122,6 +122,9 @@ var AppRouter = Backbone.Router.extend({
 		// Get resource ID from the page ID
 		this.getResourceId();
 
+		// Update the nexus
+		nexus.getHash( true );
+
 		// Call change
 		this.makeChange();
 

@@ -1,3 +1,5 @@
+var nexus = new Nexus();
+
 // Setup the sections, pages and views
 var setup = {
 
@@ -57,6 +59,12 @@ app.sections.add( sections );
 Starter.prototype.init( sections );
 // Set page-location to the currently requested section in the URL
 Starter.prototype.setStartSection( app.sections );
+
+// Create application-wide views
+app.views.push({ 	
+	name: 'tumblrControls', 
+	object: SVCreator.prototype.createView( { options: { name: 'TumblrControlsView', el: '#tumblrControls' } } ) 
+});
 
 // Create router and view
 var router = new AppRouter();

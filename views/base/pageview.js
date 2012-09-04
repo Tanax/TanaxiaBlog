@@ -63,14 +63,12 @@ var PageView = View.extend({
 
 	fadeIn: function( animate, next ) {
 
-		$el = $(this.el);
-
-		if( animate ) $el.fadeIn( _.after( $el.length, next ) );
+		if( animate ) this.$el.fadeIn( _.after( this.$el.length, next ) );
 
 		else
 		{
 
-			$el.show();
+			this.$el.show();
 			next();
 
 		}
@@ -79,14 +77,12 @@ var PageView = View.extend({
 
 	fadeOut: function( animate, next ) {
 
-		var $el = $(this.el);
-
-		if( animate ) $el.fadeOut( 'fast', _.after( $el.length, next ) );
+		if( animate ) this.$el.fadeOut( 'fast', _.after( this.$el.length, next ) );
 
 		else
 		{
 
-			$el.hide();
+			this.$el.hide();
 			next();
 
 		}

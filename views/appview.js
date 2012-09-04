@@ -46,6 +46,9 @@ var AppView = Backbone.View.extend({
 		var newSect = app.sections.get( app.get('activeSect' ) );
 		var newSectView = newSect.view;
 
+        var tumblrControls = app.getView('tumblrControls');
+        if( tumblrControls ) tumblrControls.deactivate();
+
 		if( !app.hasChanged( 'activeSect' ) ) newSectView.activate( null, newSect );
 
 		else
@@ -58,6 +61,8 @@ var AppView = Backbone.View.extend({
 			oldSectView.deactivate( oldSect, newSect );
 
 		}
+
+        if( tumblrControls ) tumblrControls.activate();
 
 	},
 
