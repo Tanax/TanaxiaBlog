@@ -18,6 +18,7 @@ var TumblrControlsView = PageView.extend({
 
 	deactivate: function() {
 
+		console.log('Deactivating: ' + this.el);
 		if( this.el != '#tumblrControls' )
 			this.hide( true );
 
