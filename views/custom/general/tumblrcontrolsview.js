@@ -31,7 +31,7 @@ var TumblrControlsView = PageView.extend({
 		console.log('We should insert new TumblrControls with name: ' + name);
 
 		var iframe = $('#loadedTumblrControls').html();
-		var div = $( '<div/>', { id: name, class: 'tumblr_controls' } ).hide();
+		var div = $( '<div/>', { id: name.replace('#', ''), class: 'tumblr_controls' } ).hide();
 
 		if( iframe && iframe.length > 0 ) 
 		{
