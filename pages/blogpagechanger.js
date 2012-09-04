@@ -42,7 +42,7 @@ var BlogPageChanger = Page.extend({
 
 		$('#loadedContent').html( content );
 		$('#loadedNavigation').html( navigation );
-		$('#ajaxCalls').html( navigation );
+		$('#ajaxCalls').html( ajaxCalls );
 
 	},
 
