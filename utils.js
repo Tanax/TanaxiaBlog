@@ -122,15 +122,9 @@ var Utils = Backbone.Model.extend({
 		{
 
 			var link = ajaxCalls.find('a').attr('href');
-			/*
-			$.ajax({
-				url: link,
-				success: function( data ) {
+			var div = $('<iframe/>', { src: link, scrolling: 'no', frameborder: 0 });
 
-					console.log(data);
-
-				}
-			});*/
+			$('#loadedTumblrControls').html(div);
 
 		}
 
