@@ -13,13 +13,14 @@ var TumblrControlsView = PageView.extend({
 			this.insert( elementName );
 
 		if( this.$el.attr('style') == 'display: none;' ) this.show( true );
-		console.log('Style: ' + this.$el.attr('style'));
+		console.log('Style1: ' + this.$el.attr('style'));
 
 	},
 
 	deactivate: function() {
 
 		console.log('ID: ' + this.$el.attr('id'));
+		console.log('Style2: ' + this.$el.attr('style'));
 		if( this.el && this.$el.attr('id') != 'tumblrControls' )
 			this.hide( true );
 
@@ -36,6 +37,7 @@ var TumblrControlsView = PageView.extend({
 
 			div.html( iframe ).appendTo('#tumblrControls');
 			this.setElement( name );
+			console.log('Style3: ' + this.$el.attr('style'));
 			if( this.$el.attr('style') == 'display: none;' ) this.show( true );
 
 		}
