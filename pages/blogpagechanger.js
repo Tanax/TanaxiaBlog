@@ -21,7 +21,7 @@ var BlogPageChanger = Page.extend({
 
 		$('#loadedContent').empty();
 		$('#loadedNavigation').empty();
-		$('#ajaxCalls').empty();
+		$('#loadedTumblrControls').empty();
 
 		var that = this;
 		$.ajax({
@@ -38,11 +38,11 @@ var BlogPageChanger = Page.extend({
 
 		var content = $(data).filter('#loadedContent').html();
 		var navigation = $(data).filter('#loadedNavigation').html();
-		var ajaxCalls = $(data).filter('#ajaxCalls').html();
+		var tumblrControls = $(data).filter('#loadedTumblrControls').html();
 
 		$('#loadedContent').html( content );
 		$('#loadedNavigation').html( navigation );
-		$('#ajaxCalls').html( ajaxCalls );
+		$('#loadedTumblrControls').html( tumblrControls );
 
 	},
 

@@ -48,7 +48,6 @@ var Utils = Backbone.Model.extend({
 
 		var loadedContent = $('#loadedContent').html();
 		var loadedNavigation = $('#loadedNavigation').html();
-		var ajaxCalls = $('#ajaxCalls');
 
 		var start = pageId.replace( '/' + resourceId, '' );
 		var type = start.split( '/' )[1];
@@ -115,16 +114,6 @@ var Utils = Backbone.Model.extend({
 			if( older.html() ) older.css({'opacity': 0}).appendTo('#bottom-nav-blog ul').addClass(navName).addClass('activeNav').animate({opacity: 1}, 'slow');
 
 			if( newer.html() || older.html() ) app.loadedNav.push(navName);
-
-		}
-
-		if( ajaxCalls && ajaxCalls.filter('a') )
-		{
-
-			var link = ajaxCalls.find('a').attr('href');
-			var div = $('<iframe/>', { src: link, scrolling: 'no', frameborder: 0 });
-
-			$('#loadedTumblrControls').html(div);
 
 		}
 
