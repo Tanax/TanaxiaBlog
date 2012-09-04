@@ -9,29 +9,27 @@ var TumblrControlsView = PageView.extend({
 		if( hash.page != undefined ) elementName += '_' + hash.page;
 		if( hash.cid != undefined ) elementName += '_' + hash.cid;
 
-		if( $(elementName).length <= 0 ) 
-			this.insert( elementName );
+		if( $(elementName).length <= 0 ) this.insert( elementName );
 
-
-		if( this.$el.css('display') == 'none' ) this.show( true );
-		console.log('Style1: ' + this.$el.css('display'));
-		console.log(this);
+		this.setElement( elementName );
+		this.show( true );
 
 	},
 
 	deactivate: function() {
 
-		console.log('ID: ' + this.$el.attr('id'));
-		console.log('Style2: ' + this.$el.css('display'));
-		console.log(this);
+		console.log('Trying to deactivate ID: ' + this.$el.attr('id'));
 		if( this.el && this.$el.attr('id') != 'tumblrControls' )
 			this.hide( true );
+
+		else console.log('Did not deactivate it');
 
 	},
 
 	insert: function( name ) {
 
 		console.log('We should insert new TumblrControls with name: ' + name);
+
 		var iframe = $('#loadedTumblrControls').html();
 		var div = $( '<div/>', { id: name, class: 'tumblr_controls' } ).hide();
 
@@ -39,10 +37,8 @@ var TumblrControlsView = PageView.extend({
 		{
 
 			div.html( iframe ).appendTo('#tumblrControls');
-			this.setElement( name );
-			console.log('Style3: ' + this.$el.css('display'));
-			console.log(this);
-			if( this.$el.css('display') == 'none' ) this.show( true );
+			if( $(name).length > 0 ) console.log('Element has been created! Setting el to new element');
+			
 
 		}
 
