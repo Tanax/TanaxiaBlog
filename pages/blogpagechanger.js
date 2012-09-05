@@ -38,7 +38,7 @@ var BlogPageChanger = Page.extend({
 
 		var content = $(data).filter('#loadedContent').html();
 		var navigation = $(data).filter('#loadedNavigation').html();
-		var tumblrControls = $(data).filter('#loadedTumblrControls').html();
+		var tumblrControls = $(data).filter('#tumblr_controls').html();
 
 		$('#loadedContent').html( content );
 		$('#loadedNavigation').html( navigation );
