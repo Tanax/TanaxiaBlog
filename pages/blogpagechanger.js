@@ -38,11 +38,11 @@ var BlogPageChanger = Page.extend({
 
 		var content = $(data).filter('#loadedContent').html();
 		var navigation = $(data).filter('#loadedNavigation').html();
-		var tumblrControls = $(data).filter('#tumblr_controls').html();
+		var tumblrControls = $(data).filter('#tumblr_controls');
 
 		$('#loadedContent').html( content );
 		$('#loadedNavigation').html( navigation );
-		$('#loadedTumblrControls').html( tumblrControls );
+		tumblrControls.appendTo('#loadedTumblrControls');
 
 	},
 
