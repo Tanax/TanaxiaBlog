@@ -28,7 +28,15 @@ var TumblrControlsView = PageView.extend({
 		var iframe = $('#loadedTumblrControls').html();
 		var div = $( '<div/>', { id: name.replace('#', ''), class: 'tumblr_controls' } ).hide();
 
-		if( iframe && iframe.length > 0 ) div.html( iframe ).appendTo('#tumblrControls');
+		if( iframe && iframe.length > 0 )
+		{
+
+			div.html( iframe ).appendTo('#tumblrControls');
+			console.log('Removing attr id');
+			div.find('iframe').removeAttr('id');
+
+		}
+
 		else 
 		{
 
