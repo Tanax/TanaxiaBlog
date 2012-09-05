@@ -37,7 +37,8 @@ var TumblrControlsView = PageView.extend({
 			{
 
 				div.appendTo('#tumblrControls');
-				original.appendTo(name);
+				original.appendTo(name).css('display', 'block');
+				original.addClass('fixed');
 
 			}
 
