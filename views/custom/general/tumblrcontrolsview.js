@@ -22,12 +22,18 @@ var TumblrControlsView = PageView.extend({
 
 	insert: function( name ) {
 
+		console.log('insert');
 		var iframe = $('#loadedTumblrControls');
 		var div = $( '<div/>', { id: name.replace('#', ''), class: 'tumblr_controls' } ).hide();
 
 		if( iframe && iframe.html().length > 0 && iframe.find('iframe').attr('id') != undefined )
+		{
+
+			console.log('uh?');
 			div.html( iframe.find('iframe').removeAttr('id').removeAttr('style').parent().html() )
 			.appendTo('#tumblrControls');
+
+		}
 
 		else 
 		{
