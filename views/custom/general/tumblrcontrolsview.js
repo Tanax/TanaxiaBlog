@@ -25,20 +25,17 @@ var TumblrControlsView = PageView.extend({
 		var iframe = $('#loadedTumblrControls');
 		var div = $( '<div/>', { id: name.replace('#', ''), class: 'tumblr_controls' } ).hide();
 
-		if( iframe && iframe.html().length > 0 && iframe.find('iframe') )
-			div.html( iframe.find('iframe').removeAttr('id').removeAttr('style')
-			.parent().html() ).appendTo('#tumblrControls');
+		if( iframe && iframe.html().length > 0 && iframe.find('iframe').attr('id') != undefined )
+			div.html( iframe.find('iframe').removeAttr('id').removeAttr('style').parent().html() )
+			.appendTo('#tumblrControls');
 
 		else 
 		{
 
-			console.log('fetching original');
 			var original = $('#tumblr_controls');
-			console.log(original);
 			if( !original.hasClass('fixed') )
 			{
 
-				console.log('appending to page!');
 				div.appendTo('#tumblrControls');
 				original.appendTo(name).css('display', 'block');
 				original.addClass('fixed');
