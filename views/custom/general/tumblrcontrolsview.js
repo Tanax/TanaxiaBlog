@@ -38,10 +38,13 @@ var TumblrControlsView = PageView.extend({
 		else 
 		{
 
+			console.log('original');
 			var original = $('#tumblr_controls');
+			console.log(original);
 			if( !original.hasClass('fixed') )
 			{
 
+				console.log('appending to ' + name);
 				div.appendTo('#tumblrControls');
 				original.appendTo(name).css('display', 'block');
 				original.addClass('fixed');
