@@ -79,7 +79,7 @@ var BlogPageNavigationView = PageView.extend({
 	deactivate: function( oldPage, newPage, options ) {
 
 		if( this.el && this.$el.attr('id') != 'bottom-nav-blog' )
-			this.$el.animate({opacity: 0}, 'slow', function() { this.hide(); });
+			this.$el.animate({opacity: 0}, 'slow', function() { $(this).hide(); });
 
 	},
 
