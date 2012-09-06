@@ -42,9 +42,9 @@ var BlogPageNavigationView = PageView.extend({
 
 		var hash = hasher.getHash();
 		var name = hash.names.resource_dash_page_dash_cid;
-		var save = this.loaded[name];
+		var save = this.loadSaved( name );
 
-		if( save ) this.loadNavigation( 'nav-' + save );
+		if( save ) this.loadNavigation( 'nav-' + name );
 		else if( $('#loadedNavigation').html().length > 0 )
 		{
 
@@ -80,6 +80,25 @@ var BlogPageNavigationView = PageView.extend({
 
 		if( this.el && this.$el.attr('id') != 'bottom-nav-blog' )
 			this.$el.animate({opacity: 0}, 'slow', function() { $(this).hide(); });
+
+	},
+
+	/*
+    |--------------------------------------------------------------------------
+    | loadSaved
+    |--------------------------------------------------------------------------
+    |
+    | Loads a saved navigation.
+    |
+    */
+	loadSaved: function( name ) {
+
+		var result = false;
+		for( var i = 0; i < this.loaded.length; i++ )
+			if( this.loaded[i] == name )
+				return result = true;
+
+		return result;
 
 	},
 
