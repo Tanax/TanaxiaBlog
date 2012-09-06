@@ -3,12 +3,9 @@ var TumblrControlsView = PageView.extend({
 
 	activate: function() {
 
-		var hash = nexus.getHash();
+		var hash = hasher.getHash();
 
-		var elementName = '#tumblrControls_' + hash.resource;
-		if( hash.page != undefined ) elementName += '_' + hash.page;
-		if( hash.cid != undefined ) elementName += '_' + hash.cid;
-
+		var elementName = '#tumblrControls_' + hash.names.resource_us_page_us_cid;
 		if( $(elementName).length <= 0 ) this.insert( elementName );
 
 		this.setElement( elementName );
@@ -29,13 +26,7 @@ var TumblrControlsView = PageView.extend({
 		var div = $( '<div/>', { id: name.replace('#', ''), class: 'tumblr_controls' } ).hide();
 
 		if( iframe && iframe.html().length > 0 )
-		{
-
-			iframe.find('iframe').removeAttr('id');
-			div.html( iframe.html() ).appendTo('#tumblrControls');
-			console.log('Removing attr id');
-
-		}
+			div.html( iframe.find('iframe').removeAttr('id').html() ).appendTo('#tumblrControls');
 
 		else 
 		{

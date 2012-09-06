@@ -1,27 +1,41 @@
-
+/** ===========================================================================
+ * 
+ * BlogPageView
+ *
+ * This view takes care of a single blog-page.
+ * 
+ * 
+ * @package 	Main
+ * @created 	Aug 30th 2012
+ * @version 	1.0
+ *
+ ** =========================================================================== */
 var BlogPageView = PageView.extend({
 
+	/*
+    |--------------------------------------------------------------------------
+    | activate
+    |--------------------------------------------------------------------------
+    |
+    | Called when the view is activated. Animates the blog-page into the page.
+    |
+    */
 	activate: function( oldPage, newPage, options ) {
 
 		this.init();
 
-		// If change from antoher page in the same sect
+		// If change from another page in the same sect
 		if( oldPage ) 
 		{
 
 			// Animate if sect has changed and app has inited
 			var animate = !options.sectChanged && app.inited;
 
-			// If change from portfolio page
+			// If change from a different blog-page
 			if( oldPage.view instanceof BlogPageView ) 
-			{
-				
-				//projNavView.activate(oldPage, newPage, options);
-				var side = this._side(oldPage, newPage);
-				this.show( 'slideIn', side, animate );
+				this.show( 'slideIn', this._side( oldPage, newPage ), animate );
 
-			}
-
+			// If change from a blog-post
 			else if( oldPage.view instanceof BlogPostView )
 			{
 
@@ -32,53 +46,82 @@ var BlogPageView = PageView.extend({
 
 		}
 
+		// If change from another section
 		else 
 		{
 
-			var animate = options.starter + !options.sectChanged;
+			// Animate if section have not changed
+			// or if it's a first-time load
+			var animate = !options.sectChanged;
+			if( options.starter ) animate = true;
+
 			this.show( 'fadeIn', animate );
 
 		}
 
+		// Activate navigation
+		var navigation = app.getView('bpnavigation');
+		if( navigation ) navigation.activate( oldPage, newPage, options );
+
 	},
 
+	/*
+    |--------------------------------------------------------------------------
+    | deactivate
+    |--------------------------------------------------------------------------
+    |
+    | Called when the view is deactivated. Removes blog-page from the page.
+    |
+    */
 	deactivate: function( oldPage, newPage, options ) {
-		
-		//projNavView.deactivate(oldPage, newPage, options);
 
-		// If change to antoher page in the same sect
+		// If change to antoher page in the same section
 		if( newPage ) 
 		{
 
+			var navigation = app.getView('bpnavigation');
+			if( navigation ) navigation.deactivate( oldPage, newPage, options );
+
 			var animate = !options.sectChanged && app.inited;
 
-			// If change to portfolio page
+			// If change to a different blog-page
 			if( newPage.view instanceof BlogPageView ) 
-			{
+				this.hide( 'slideOut', this._side( oldPage, newPage ), animate );
 
-				var side = this._side( oldPage, newPage );
-				this.hide( 'slideOut', side, animate );
-
-			}
-
+			// If change to a blog-post
 			else if( newPage.view instanceof BlogPostView )
 			{
 
 				$('#blog .page-header span.back').fadeIn('fast').find('a').attr('href', '#' + this.model.id);
-				this.show( 'fadeOut', animate );
+				this.hide( 'fadeOut', animate );
 
 			}
 		}
 
 	},
 
-	// Is the old project at left or right side of the new project
+	/*
+    |--------------------------------------------------------------------------
+    | _side
+    |--------------------------------------------------------------------------
+    |
+    | Determines from what side the new blog-page should slide in from.
+    |
+    */
 	_side: function( oldPage, newPage ) {
 
 		return oldPage.get('index') < newPage.get('index') ? 'left' : 'right';
 
 	},
 
+	/*
+    |--------------------------------------------------------------------------
+    | show
+    |--------------------------------------------------------------------------
+    |
+    | Shows the view.
+    |
+    */
 	show: function( fx ) {
 
 		var args = slice.call( arguments, 1 );
@@ -86,6 +129,14 @@ var BlogPageView = PageView.extend({
 
 	},
 
+	/*
+    |--------------------------------------------------------------------------
+    | hide
+    |--------------------------------------------------------------------------
+    |
+    | Hides the view.
+    |
+    */
 	hide: function( fx ) {
 
 		var args = slice.call( arguments, 1 );
@@ -93,9 +144,16 @@ var BlogPageView = PageView.extend({
 
 	},
 
+	/*
+    |--------------------------------------------------------------------------
+    | slideIn
+    |--------------------------------------------------------------------------
+    |
+    | Slides the view in from the side passed in.
+    |
+    */
 	slideIn: function( toSide, animate, next ) {
 
-		//var $el = $(this.el);
 		var $this = this;
 
 		if( animate ) 
@@ -103,22 +161,13 @@ var BlogPageView = PageView.extend({
 
 			var width = this.$el.width();
 
-			var startProps = {
-
-				position: 'absolute'
-				//top: $(projNavView.el).outerHeight(true)
-
-			};
+			var startProps = { position: 'absolute' };
 
 			startProps['top'] = $('.page-header', this.container).outerHeight(true);
 			startProps[toSide] = '50%';
 			startProps['margin-' + toSide] = width * 0.5;
 
-			var endProps = {
-
-				opacity: 'show'
-
-			};
+			var endProps = { opacity: 'show' };
 
 			endProps['margin-' + toSide] = -width * 0.5;;
 
@@ -151,7 +200,14 @@ var BlogPageView = PageView.extend({
 		}		
 	},
 
-	// Call next() immediately
+	/*
+    |--------------------------------------------------------------------------
+    | slideOut
+    |--------------------------------------------------------------------------
+    |
+    | Exactly like the slideIn but instead slides out.
+    |
+    */
 	slideOut: function( toSide, animate, next ) {
 
 		//var $el = $(this.el);
@@ -207,3 +263,5 @@ var BlogPageView = PageView.extend({
 	}
 
 });
+
+// End of blogpageview.js

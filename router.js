@@ -45,63 +45,29 @@ var AppRouter = Backbone.Router.extend({
 
 	/*
     |--------------------------------------------------------------------------
-    | initialize
+    | routePage
     |--------------------------------------------------------------------------
     |
-    | Called when router is initialized. Clean internal variables.
+    | Gets the routed page by doing a bunch of checks.
     |
     */
-	initialize: function( options ) {
-
-		this.clean();
-
-	},
-
-	/*
-    |--------------------------------------------------------------------------
-    | fixPageId
-    |--------------------------------------------------------------------------
-    |
-    | Fixes the page id to make it a valid page id and resource id.
-    |
-    */
-	fixPageId: function( pageId ) {
+	routePage: function( page ) {
 
 		// Remove root-folder from page ID
-		var id = pageId.replace( '/' + Config.url_folder, '' );
+		var id = page.replace( '/' + Config.url_folder, '' );
 
 		// Add begin-slash if we don't have it
 		if( id.charAt(0) !== '/' ) id = '/' + id;
 
 		// Remove end-slash if we have it
-		if( id.charAt( id.length - 1 ) == '/' ) id = id.substr( 0, id.length - 1 ) + id.substr( id.length - 1 + 1 );
+		if( id.charAt( id.length - 1 ) == '/' ) 
+			id = id.substr( 0, id.length - 1 ) + id.substr( id.length - 1 + 1 );
 
 		// Check if ID exists in redirects
 		if( id in this.redirects ) id = this.redirects[id];
 
-		// Save main version
-		this.page_id = id;
-
 		// Return it
-		return this.page_id;
-
-	},
-
-	/*
-    |--------------------------------------------------------------------------
-    | getResourceId
-    |--------------------------------------------------------------------------
-    |
-    | Gets the resource id from the page id.
-    |
-    */
-	getResourceId: function() {
-
-		// Replace all / with nothing
-		this.resource_id = this.page_id.split('/')[1].replace('/', '');
-
-		// If we end up with an empty string, set it to starting resource
-		if( this.resource_id == '' ) this.resource_id = Config.start_resource;
+		return id;
 
 	},
 
@@ -110,45 +76,17 @@ var AppRouter = Backbone.Router.extend({
     | match
     |--------------------------------------------------------------------------
     |
-    | This function will be called on every URL/URI change. Fixes the page id,
-    | gets the resource id and then makes the change.
+    | This function will be called on every URL/URI change. Gets the hash from
+    | the Hasher and then makes the change.
     |
     */
 	match: function( pageId ) {
 
-		// Fix page ID
-		this.fixPageId( pageId );
-
-		// Get resource ID from the page ID
-		this.getResourceId();
-
-		// Update the nexus
-		nexus.getHash( true );
+		// Get the current hash by updating it
+		var hash = hasher.getHash( true );
 
 		// Call change
-		this.makeChange();
-
-	},
-
-	/*
-    |--------------------------------------------------------------------------
-    | beforeChange
-    |--------------------------------------------------------------------------
-    |
-    | Calls beforeCHange on the section to make neccessary AJAX-calls,
-    | etc. before the change is triggered.
-    |
-    */
-	beforeChange: function() {
-
-		var section = app.getSection( this.resource_id );
-		if( section ) section.beforeChange( this.page_id, this.resource_id );
-
-	},
-
-	prepareForceChange: function() {
-
-		this.forceChange_prop = true;
+		this.makeChange( hash );
 
 	},
 
@@ -161,62 +99,80 @@ var AppRouter = Backbone.Router.extend({
     | in the affected section.
     |
     */
-	makeChange: function() {
+	makeChange: function( hash, excludeChange, fromStarter ) {
 
-		var attributes = {activePage: this.page_id};
-		this.beforeChange();
+		if( !hash ) return;
+
+		var attributes = {activePage: hash.full};
+		this.beforeChange( hash.resource, fromStarter );
 
 		var $this = this;
+		var foundSection = false;
 
 		app.sections.some( function( section ) {
 
 			if( !section.validate( attributes ) )
 			{
 
-				section.set( attributes, {silent: true} );
-				app.set( {activeSect: section.id}, {silent: true} );
+				if( !excludeChange )
+				{
 
-				$this.forceChange( app, section );
-				
-				app.change();
-				section.change();
+					section.set( attributes, {silent: true} );
+					app.set( {activeSect: section.id}, {silent: true} );
 
-				section.beforeChangeAvailable = true;
+					$this.checkForceChange( section );
+					
+					app.change();
+					section.change();
+
+					section.beforeChangeAvailable = true;
+
+				}
+
+				foundSection = section;
 				return true;
 
 			}
 
 		});
 
-		this.clean();
-
-	},
-
-	forceChange: function( app, section ) {
-
-		if( !app.hasChanged( 'activeSect' ) && !section.hasChanged( 'activePage' ) && this.forceChange_prop == true )
-		{
-
-			this.forceChange_prop = false;
-			view.forceChange();
-
-		}
+		return foundSection;
 
 	},
 
 	/*
     |--------------------------------------------------------------------------
-    | clean
+    | beforeChange
     |--------------------------------------------------------------------------
     |
-    | Cleans up internal variables, resetting them before the next route
-    | match is triggered.
+    | Calls beforeChange on the section to make neccessary AJAX-calls,
+    | etc. before the change is triggered.
     |
     */
-	clean: function() {
+	beforeChange: function( resource, fromStarter ) {
 
-		this.resource_id = null;
-		this.page_id 	 = null;
+		var section = app.getSection( resource );
+		if( section ) section.beforeChange( fromStarter );
+
+	},
+
+	/*
+    |--------------------------------------------------------------------------
+    | checkForceChange
+    |--------------------------------------------------------------------------
+    |
+    | Checks to see if we should force-trigger a change in the application.
+    |
+    */
+	checkForceChange: function( section ) {
+
+		if( !app.hasChanged( 'activeSect' ) && !section.hasChanged( 'activePage' ) && this.forceChange == true )
+		{
+
+			this.forceChange = false;
+			view.forceChange();
+
+		}
 
 	}
 

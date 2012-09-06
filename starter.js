@@ -1,41 +1,65 @@
-
+/** ===========================================================================
+ * 
+ * Starter
+ *
+ * Takes care of startup things.
+ * 
+ * 
+ * @package 	Core
+ * @created 	Aug 30th 2012
+ * @version 	1.0
+ *
+ ** =========================================================================== */
 var Starter = Backbone.Model.extend({
 	
+	/*
+    |--------------------------------------------------------------------------
+    | init
+    |--------------------------------------------------------------------------
+    |
+    | Appends all header and footer bars.
+    |
+    */
 	init: function( sections ) {
 
 		this.appendBars();
 
 	},
 
+	/*
+    |--------------------------------------------------------------------------
+    | setStartSection
+    |--------------------------------------------------------------------------
+    |
+    | Sets the #page css-option based on the hash. This is what makes it
+    | possible to refresh a page with a hash and still have it load with that
+    | page as a starting page without having to first load the index-page and
+    | then have it animate to the page we want to load.
+    |
+    */
 	setStartSection: function( sections ) {
 
-		// Get URL hash
-		var hash = window.location.hash.replace('#', '');
-		hash = AppRouter.prototype.fixPageId( hash );
-		var options = { activePage: hash };
-		var resource = hash.split('/')[1];
+		var hash = hasher.getHash();
+		var section = AppRouter.prototype.makeChange( hash, true, true );
 
-		// Loop through all sections
-		sections.some( function( section ) {
+		if( section )
+		{
 
-			if( section.get('name') == resource ) 
-				section.beforeChange( hash, resource, true );
+			section.fromStarter = true;
+			$('#page').css('top', -section.id * 100 + '%');
 
-			// Check if current section has the current page
-			if( !section.validate( options ) )
-			{
-
-				section.setFromStarter = true;
-				$('#page').css('top', -section.id * 100 + "%");
-
-				return;
-
-			}
-
-		});
+		}
 
 	},
 
+	/*
+    |--------------------------------------------------------------------------
+    | appendBars
+    |--------------------------------------------------------------------------
+    |
+    | Finds the barTemplate and appends all bars to the website.
+    |
+    */
 	appendBars: function() {
 
 		var topBlog = {
@@ -182,3 +206,5 @@ var Starter = Backbone.Model.extend({
 	}
 
 });
+
+// End of starter.js

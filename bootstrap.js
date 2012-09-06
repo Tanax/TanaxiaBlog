@@ -1,6 +1,22 @@
-var nexus = new Nexus();
+/*
+|--------------------------------------------------------------------------
+| hasher
+|--------------------------------------------------------------------------
+|
+| Initiate the Hasher which will be responsible for fetching
+| and maintaining an updated version of the current URL-hash.
+|
+*/
+var hasher = new Hasher();
 
-// Setup the sections, pages and views
+/*
+|--------------------------------------------------------------------------
+| setup
+|--------------------------------------------------------------------------
+|
+| Sets up all the sections, changers, pages and views.
+|
+*/
 var setup = {
 
 	message: {
@@ -18,18 +34,7 @@ var setup = {
 	blog: {
 		options: { id: 1 },
 		view: { options: { name: 'BlogSectionView' } },
-		changer: { options: { name: 'BlogPageChanger' } }/*,
-		pages: {
-			__globals__: { name: 'BlogPageView', container: '#blog' },
-			'/blog/page/1': {
-				options: { index: 0, setActive: true },
-				view: { options: { el: '#page1' } }
-			},
-			'/blog/page/2': {
-				options: { index: 1 },
-				view: { options: { el: '#page2' } }
-			}
-		}*/
+		changer: { options: { name: 'BlogChanger' } }
 	},
 
 	about: {
@@ -41,40 +46,83 @@ var setup = {
 				view: { options: { name: 'AboutView', el: '#about' } }
 			}
 		}
-	},
-
-	__view__: { options: { name: 'BlogPageNavigationView', el: '#bottom-nav-blog' } }
+	}
 
 };
 
-// Create the actual section-/page-/view-classes from the setup and return the sections
-var sections = SVCreator.prototype.setup( setup );
+var sections = ClassCreator.prototype.setup( setup );
 
-// Create application
+/*
+|--------------------------------------------------------------------------
+| application
+|--------------------------------------------------------------------------
+|
+| Initiate the application and add the sections created above.
+|
+*/
 var app = new Application({ activeSect: 1 });
-// Add the sections
 app.sections.add( sections );
 
-// Initialize everything
-Starter.prototype.init( sections );
-// Set page-location to the currently requested section in the URL
+/*
+|--------------------------------------------------------------------------
+| Starter
+|--------------------------------------------------------------------------
+|
+| Initiate the Starter to run start-up scripts.
+|
+*/
+Starter.prototype.init( app.sections );
 Starter.prototype.setStartSection( app.sections );
 
-// Create application-wide views
+/*
+|--------------------------------------------------------------------------
+| app-views
+|--------------------------------------------------------------------------
+|
+| Create the application-wide views.
+|
+*/
 app.views.push({ 	
 	name: 'tumblrControls', 
-	object: SVCreator.prototype.createView( { options: { name: 'TumblrControlsView', el: '#tumblrControls' } } ) 
+	object: ClassCreator.prototype.createView( { options: { name: 'TumblrControlsView', el: '#tumblrControls' } } ) 
 });
 
-// Create router and view
-var router = new AppRouter();
-// Call its force change to force a change-call in the router
-router.prepareForceChange();
+app.views.push({
+	name: 'bpnavigation',
+	object: ClassCreator.prototype.createView( { options: { name: 'BlogPageNavigationView', el: '#bottom-nav-blog' } } )
+});
 
-// Create the main application view
+/*
+|--------------------------------------------------------------------------
+| router
+|--------------------------------------------------------------------------
+|
+| Initiate the router.
+|
+*/
+var router = new AppRouter();
+router.forceChange = true;
+
+/*
+|--------------------------------------------------------------------------
+| view
+|--------------------------------------------------------------------------
+|
+| Initiate the application-view that will be responsible for changing
+| sections whenever there is an update in the URL-hash.
+|
+*/
 var view = new AppView();
 
-// Launch website
+/*
+|--------------------------------------------------------------------------
+| launch
+|--------------------------------------------------------------------------
+|
+| Launch the website!
+|
+*/
 Backbone.history.start();
-// Set inited to true
 app.inited = true;
+
+// End of bootstrap.js

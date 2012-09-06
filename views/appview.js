@@ -43,25 +43,35 @@ var AppView = Backbone.View.extend({
     */
 	changeSection: function() {
 
+        // Get the new section and its view from the app
 		var newSect = app.sections.get( app.get('activeSect' ) );
 		var newSectView = newSect.view;
 
+        // Get the tumblr-controls view from the app
         var tumblrControls = app.getView('tumblrControls');
+
+        // Deactivate possible previous tumblr-controls
         if( tumblrControls ) tumblrControls.deactivate();
 
+        // If the section haven't changed, only activate the new section
 		if( !app.hasChanged( 'activeSect' ) ) newSectView.activate( null, newSect );
 
+        // If section have changed, deactivate old section also
 		else
 		{
 
+            // Get the old section and its view from the app
 			var oldSect = app.sections.get( app.previous( 'activeSect' ) );
 			var oldSectView = oldSect.view;
 
+            // Activate the new section
 			newSectView.activate( oldSect, newSect );
+            // Deactivate the old section
 			oldSectView.deactivate( oldSect, newSect );
 
 		}
 
+        // Activate new tumblr-controls
         if( tumblrControls ) tumblrControls.activate();
 
 	},

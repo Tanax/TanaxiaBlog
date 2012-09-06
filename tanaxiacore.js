@@ -25,15 +25,15 @@ var Section = Backbone.Model.extend({
 
 	forceChange: function() { view.forceChange(); },
 
-	beforeChange: function( pageId, resourceId, fromStarter ) {
+	beforeChange: function( fromStarter ) {
 
 		if( this.beforeChangeAvailable )
 		{
 
 			var changer = this.get('changer');
-			if( changer ) changer.beforeChange( pageId, resourceId, fromStarter );
+			if( changer ) changer.beforeChange( fromStarter );
 
-			Utils.prototype.insertLoaded( pageId, resourceId );
+			Utils.prototype.insertLoaded();
 			this.beforeChangeAvailable = false;
 
 		}
@@ -49,7 +49,6 @@ var Application = Backbone.Model.extend({
 	initialize: function() {
 
 		this.sections = new Sections();
-		this.loadedNav = [];
 		this.views = [];
 
 	},
@@ -70,16 +69,6 @@ var Application = Backbone.Model.extend({
 		});
 
 		return section;
-
-	},
-
-	getLoadedNav: function( search ) {
-
-		for( var i = 0; i < this.loadedNav.length; i++ )
-			if( this.loadedNav[i].match( search ) )
-				return this.loadedNav[i];
-
-		return null;
 
 	},
 

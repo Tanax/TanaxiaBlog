@@ -8,9 +8,9 @@ var SectView = View.extend({
 		var newPage = newSect.pages.get( newSect.get( 'activePage' ) );
 		var newPageView = newPage.view;
 
-		var options = {sectChanged: !!oldSect, starter: ( app.sections.get( newSect.id ).setFromStarter == true )};
+		var options = {sectChanged: !!oldSect, starter: ( app.sections.get( newSect.id ).fromStarter == true )};
 
-		if( !newSect.hasChanged( 'activePage' ) || app.sections.get( newSect.id ).setFromStarter == true )
+		if( !newSect.hasChanged( 'activePage' ) || options.starter == true )
 			newPageView.activate( null, newPage, options );
 
 		else
@@ -25,7 +25,7 @@ var SectView = View.extend({
 		}
 
 		if( oldSect ) this.show();
-		if( options.starter ) app.sections.get( newSect.id ).setFromStarter = false;
+		if( options.starter ) app.sections.get( newSect.id ).fromStarter = false;
 
 	},
 

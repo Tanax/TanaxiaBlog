@@ -1,21 +1,53 @@
-
+/** ===========================================================================
+ * 
+ * Utilities
+ *
+ * This class contains various utility-methods to perform allround tasks
+ * on the website.
+ * 
+ * 
+ * @package 	Main
+ * @created 	Aug 31st 2012
+ * @version 	1.0
+ *
+ ** =========================================================================== */
 var Utils = Backbone.Model.extend({
 	
-	hashElement: function( hashExclude ) {
+	/*
+    |--------------------------------------------------------------------------
+    | hashElement
+    |--------------------------------------------------------------------------
+    |
+    | Checks if an element exists on the website.
+    |
+    */
+	hashElement: function( element, hashExclude ) {
 
 		var result = false;
-		var hash = nexus.getHash();
-
-		var remove = '/' + hash.resource + '/';
-		var div = '#' + hash.full.replace( remove, '' ).replace( '/', '' );
+		var hash = hasher.getHash();
+		var div = '#' + element;
 
 		if( $(div).length <= 0 ) result = true;
-		if( hashExclude && hash == hashExclude ) result = false;
+		if( hashExclude && hash.full == hashExclude ) result = false;
 
 		return result;
 
 	},
 
+	/*
+    |--------------------------------------------------------------------------
+    | fixLinks
+    |--------------------------------------------------------------------------
+    |
+    | Fixes all current links on the website with the class "fix". What this
+    | means is that the URLs will be changed from e.g.:
+    |
+    | 	http://url.com/post/id 	=> http://url.com/#/blog/post/id
+    |
+    | This will make it so that the page doesn't need to be reloaded when
+    | a link is clicked which enables all of the animations to occur.
+    |
+    */
 	fixLinks: function() {
 
 		$('.fix').each( function( index ) {
@@ -44,84 +76,53 @@ var Utils = Backbone.Model.extend({
 
 	},
 
-	insertLoaded: function( pageId, resourceId ) {
+	/*
+    |--------------------------------------------------------------------------
+    | insertLoaded
+    |--------------------------------------------------------------------------
+    |
+    | Inserts AJAX-loaded(or first-time loaded) content into the website,
+    | creating the neccessary view-files and page-files and inserts them
+    | into the correct section.
+    |
+    */
+	insertLoaded: function() {
 
 		var loadedContent = $('#loadedContent').html();
-		var loadedNavigation = $('#loadedNavigation').html();
+		var hash = hasher.getHash();
 
-		var start = pageId.replace( '/' + resourceId, '' );
-		var type = start.split( '/' )[1];
-		var cid = start.replace( '/' + type, '' ).replace( '/', '' );
-
-		if( loadedContent.length > 0 && this.hashElement() )
+		if( loadedContent.length > 0 && this.hashElement( hash.names.page_cid ) )
 		{
 
 			this.fixLinks();
 
-			var data = {
-				section: { name: resourceId },
-				page: { 
-					id_full: pageId, 
-					id_min: start
-				},
-				element: {}
+			var element = $( '<div/>', { id: hash.names.page_cid, class: hash.names.resource_dash_page } ).hide();
+			element.html( loadedContent ).appendTo( '#' + this.getContainerName( hash.names.resource_dash_page ) );
+
+			var options = {
+				options: this.getPageOptions( hash ),
+				view: { options: this.getViewOptions( hash ) }
 			};
 
-			data.page.type = type;
-			data.page.cid = cid;
-			data.page.container = this.getContainerName( data );
+			var page = ClassCreator.prototype.createPage( options );
+			var section = app.getSection( hash.resource );
 
-			data.element.name = data.page.type + data.page.cid;
-			data.element.class = data.section.name + '-' + data.page.type;
-
-			data.element.object = $( '<div/>', { id: data.element.name, class: data.element.class } ).hide();
-			data.element.object.html( loadedContent );
-
-			if( this.insertIntoPage( data ) )
-			{
-
-				var options = {
-
-					options: this.getPageOptions( data ),
-					view: {
-						options: this.getViewOptions( data )
-					}
-				};
-
-				var page = SVCreator.prototype.createPage( options );
-				var section = app.getSection( data.section.name );
-
-				if( page.object && section ) section.pages.add( page.object );
-
-			}
-
-		}
-
-		var oldNav = $('#bottom-nav-blog ul .activeNav');
-		if( oldNav.html() ) oldNav.removeClass('activeNav').animate({opacity: 0}, 'slow', function() { oldNav.css({'display': 'none'}); });
-
-		var navName = resourceId + '-' + type + '-' + cid;
-		var loaded = app.getLoadedNav( navName );
-
-		if( loaded ) $('#bottom-nav-blog ul .' + loaded).addClass('activeNav').attr('style', '').css({'opacity': 0}).animate({opacity: 1}, 'slow');
-		else if( loadedNavigation.length > 0 && resourceId == 'blog' && type == 'page' )
-		{
-
-			var older = $('#loadedNavigation .older');
-			var newer = $('#loadedNavigation .earlier');
-
-			if( newer.html() ) newer.css({'opacity': 0}).appendTo('#bottom-nav-blog ul').addClass(navName).addClass('activeNav').animate({opacity: 1}, 'slow');
-			if( older.html() ) older.css({'opacity': 0}).appendTo('#bottom-nav-blog ul').addClass(navName).addClass('activeNav').animate({opacity: 1}, 'slow');
-
-			if( newer.html() || older.html() ) app.loadedNav.push(navName);
+			if( page.object && section ) section.pages.add( page.object );
 
 		}
 
 	},
 
-	getContainerName: function( data ) {
+	/*
+    |--------------------------------------------------------------------------
+    | getContainerName
+    |--------------------------------------------------------------------------
+    |
+    | Gets the correct plural container-name for whatever type is passed in.
+    |
+    */
+	getContainerName: function( type ) {
 
-		var type = data.section.name + '-' + data.page.type;
 		switch( type )
 		{
 
@@ -195,17 +196,23 @@ var Utils = Backbone.Model.extend({
 
 	},
 
-	getPageOptions: function( data ) {
+	/*
+    |--------------------------------------------------------------------------
+    | getPageOptions
+    |--------------------------------------------------------------------------
+    |
+    | Gets the page-options for whatever page-class we're creating.
+    |
+    */
+	getPageOptions: function( hash ) {
 
-		var options = {
-			id: data.page.id_full
-		};
+		var options = { id: hash.full };
 
-		switch( data.page.type )
+		switch( hash.page )
 		{
 
-			case 'page': options.index = ( data.page.cid - 1 ); break;
-			case 'post': options.index = data.page.cid; break;
+			case 'page': options.index = ( hash.cid - 1 ); break;
+			case 'post': options.index = hash.cid; break;
 
 		}
 
@@ -213,18 +220,34 @@ var Utils = Backbone.Model.extend({
 
 	},
 
-	getViewOptions: function( data ) {
+	/*
+    |--------------------------------------------------------------------------
+    | getViewOptions
+    |--------------------------------------------------------------------------
+    |
+    | Gets the view-options for whatever view-class we're creating.
+    |
+    */
+	getViewOptions: function( hash ) {
 
 		var options = {
-			el: '#' + data.element.name,
-			container: $('#' + data.section.name),
-			name: this.capitalize( data.section.name ) + this.capitalize( data.page.type ) + 'View'
+			el: '#' + hash.names.page_cid,
+			container: $('#' + hash.resource),
+			name: this.capitalize( hash.resource ) + this.capitalize( hash.page ) + 'View'
 		};
 
 		return options;
 
 	},
 
+	/*
+    |--------------------------------------------------------------------------
+    | capitalize
+    |--------------------------------------------------------------------------
+    |
+    | Capitalizes the string that's passed in.
+    |
+    */
 	capitalize: function( string ) {
 
 		if( string == '' || !string ) return '';

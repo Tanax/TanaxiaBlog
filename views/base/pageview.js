@@ -18,11 +18,7 @@ var PageView = View.extend({
 
 	},
 
-	scrollToTopHandler: function() {
-
-		this.scrollToTop( true );
-
-	},
+	scrollToTopHandler: function() { this.scrollToTop( true ); },
 
 	activate: function( oldPage, newPage, options ) {
 
@@ -49,43 +45,21 @@ var PageView = View.extend({
 
 	},
 
-	show: function( animate, next ) {
+	show: function( animate, next ) { this.fadeIn( animate, next ); },
 
-		this.fadeIn( animate, next );
-
-	},
-
-	hide: function( animate, next ) {
-
-		this.fadeOut( animate, next );
-
-	},
+	hide: function( animate, next ) { this.fadeOut( animate, next ); },
 
 	fadeIn: function( animate, next ) {
 
 		if( animate ) this.$el.fadeIn( _.after( this.$el.length, next ) );
-
-		else
-		{
-
-			this.$el.show();
-			next();
-
-		}
+		else { this.$el.show(); next(); }
 
 	},
 
 	fadeOut: function( animate, next ) {
 
 		if( animate ) this.$el.fadeOut( 'fast', _.after( this.$el.length, next ) );
-
-		else
-		{
-
-			this.$el.hide();
-			next();
-
-		}
+		else { this.$el.hide(); next(); }
 
 	},
 

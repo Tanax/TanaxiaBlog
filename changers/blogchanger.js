@@ -1,11 +1,15 @@
 
-var BlogPageChanger = Page.extend({
+var BlogChanger = Page.extend({
 
-	beforeChange: function( pageId, resourceId, fromStarter ) {
+	beforeChange: function( fromStarter ) {
 
 		this.clean();
-		this.ajax = { url: 'http://tanaxiablog.tumblr.com' + pageId.replace( '/' + resourceId, '' ) };
+
+		var hash = hasher.getHash();
+		
+		this.ajax = { url: 'http://tanaxiablog.tumblr.com' + hash.min };
 		this.excludeHash = ( !fromStarter ) ? null : '/blog/page/1';
+		this.element = hash.names.page_cid;
 
 		this.checkAjax();
 
@@ -13,7 +17,7 @@ var BlogPageChanger = Page.extend({
 
 	checkAjax: function() {
 
-		if( Utils.prototype.hashElement( this.excludeHash ) ) this.handleAjax();
+		if( Utils.prototype.hashElement( this.element, this.excludeHash ) ) this.handleAjax();
 
 	},
 
@@ -50,6 +54,7 @@ var BlogPageChanger = Page.extend({
 
 		this.ajax 		 = null;
 		this.excludeHash = null;
+		this.element 	 = null;
 
 	}
 
