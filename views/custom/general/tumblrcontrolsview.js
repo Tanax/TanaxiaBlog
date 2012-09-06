@@ -25,7 +25,7 @@ var TumblrControlsView = PageView.extend({
 		var iframe = $('#loadedTumblrControls');
 		var div = $( '<div/>', { id: name.replace('#', ''), class: 'tumblr_controls' } ).hide();
 
-		if( iframe && iframe.html().length > 0 )
+		if( iframe && iframe.html().length > 0 && iframe.find('iframe') )
 			div.html( iframe.find('iframe').removeAttr('id').removeAttr('style')
 			.parent().html() ).appendTo('#tumblrControls');
 
