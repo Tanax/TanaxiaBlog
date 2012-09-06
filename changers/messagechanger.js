@@ -20,6 +20,7 @@ var MessageChanger = Page.extend({
 
 		$('#loadedContent').empty();
 		$('#loadedNavigation').empty();
+		$('#loadedTumblrControls').empty();
 
 		var that = this;
 		$.ajax({
@@ -36,9 +37,11 @@ var MessageChanger = Page.extend({
 
 		var content = $(data).filter('#loadedContent').html();
 		var div = $( '<div/>', { id: 'message-ask' } );
+		var tumblrControls = $(data).filter('#tumblr_controls');
 
 		div.html( content );
 		$('#message').append( div );
+		tumblrControls.appendTo('#loadedTumblrControls');
 
 	},
 
