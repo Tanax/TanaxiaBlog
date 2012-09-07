@@ -10,7 +10,7 @@
  * AJAX-calls that might have to be done before a change is triggered.
  * 
  * 
- * @package 	Main
+ * @package 	Application - Core
  * @created 	Aug 29th 2012
  * @version 	1.0
  *

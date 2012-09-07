@@ -1,16 +1,15 @@
 /** ===========================================================================
  * 
- * AboutView
+ * Pages
  *
- * The view for the about-page. Handles things whenever this page is
- * activated or interacted with in any way.
+ * Contains a collection of several pages.
  * 
  * 
- * @package 	Views - Custom - About
+ * @package 	Application - Base
  * @created 	Aug 30th 2012
  * @version 	1.0
  *
  ** =========================================================================== */
-var AboutView = PageView.extend();
+ var Pages = Backbone.Collection.extend({model: Page});
 
-// End of aboutview.js
+ // End of pages.js

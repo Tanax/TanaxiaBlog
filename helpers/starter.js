@@ -5,7 +5,7 @@
  * Takes care of startup things.
  * 
  * 
- * @package 	Core
+ * @package 	Helpers
  * @created 	Aug 30th 2012
  * @version 	1.0
  *

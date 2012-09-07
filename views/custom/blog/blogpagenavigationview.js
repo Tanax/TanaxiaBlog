@@ -6,7 +6,7 @@
  * to older and newer entries.
  * 
  * 
- * @package 	Views - Blog
+ * @package 	Views - Custom - Blog
  * @created 	Sep 2nd 2012
  * @version 	1.0
  *

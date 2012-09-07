@@ -1,10 +1,16 @@
+/** ===========================================================================
+ * 
+ * MessageView
+ *
+ * The view for the message-page. Handles things whenever this page is
+ * activated or interacted with in any way.
+ * 
+ * 
+ * @package 	Views - Custom - Message
+ * @created 	Aug 30th 2012
+ * @version 	1.0
+ *
+ ** =========================================================================== */
+var MessageView = PageView.extend();
 
-var MessageView = PageView.extend({
-
-	init: function() {
-
-		console.log('Woho from MessageView');
-		
-	}
-
-});
+// End of messageview.js

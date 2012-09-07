@@ -6,7 +6,7 @@
  * on the website.
  * 
  * 
- * @package 	Main
+ * @package 	Helpers
  * @created 	Aug 31st 2012
  * @version 	1.0
  *
@@ -256,3 +256,5 @@ var Utils = Backbone.Model.extend({
 	}
 
 });
+
+// End of utils.js

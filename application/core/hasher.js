@@ -6,7 +6,7 @@
  * information related to the hash.
  * 
  * 
- * @package 	Core
+ * @package 	Application - Core
  * @created 	Sep 4th 2012
  * @version 	1.0
  *
@@ -85,6 +85,16 @@ var Hasher = Backbone.Model.extend({
 
 	},
 
+	/*
+    |--------------------------------------------------------------------------
+    | _getResource
+    |--------------------------------------------------------------------------
+    |
+    | Returns the resource name from the full hash. If it ends up being
+    | empty, it will use the config's starting resource instead since that
+    | means we're browsing the index page with no resource in the URL-hash.
+    |
+    */
 	_getResource: function( page ) {
 
 		var resource = page.split('/')[1].replace('/', '');
@@ -94,6 +104,15 @@ var Hasher = Backbone.Model.extend({
 
 	},
 
+	/*
+    |--------------------------------------------------------------------------
+    | _getPage
+    |--------------------------------------------------------------------------
+    |
+    | Returns the page name within the resource from the miniaturized hash.
+    | If it ends up being empty, we will return an empty string.
+    |
+    */
 	_getPage: function( hashMin ) {
 
 		var page = hashMin.split('/')[1];
@@ -103,6 +122,16 @@ var Hasher = Backbone.Model.extend({
 
 	},
 
+	/*
+    |--------------------------------------------------------------------------
+    | _getCid
+    |--------------------------------------------------------------------------
+    |
+    | Returns the unique ID from the full hash. This ID can, for instance, be
+    | a blog-post ID or a blog-page ID. If no ID is found, as is the case when
+    | browsing a page like "message", it will return an empty string.
+    |
+    */
 	_getCid: function( hash ) {
 
 		if( hash.page == '' ) return '';

@@ -2,10 +2,11 @@
  * 
  * BlogPageView
  *
- * This view takes care of a single blog-page.
+ * The view for the blog-page view. Handles things whenever this page is
+ * activated or interacted with in any way.
  * 
  * 
- * @package 	Main
+ * @package 	Views - Custom - Blog
  * @created 	Aug 30th 2012
  * @version 	1.0
  *
@@ -17,18 +18,18 @@ var BlogPageView = PageView.extend({
     | activate
     |--------------------------------------------------------------------------
     |
-    | Called when the view is activated. Animates the blog-page into the page.
+    | Called whenever this view is activated.
     |
     */
 	activate: function( oldPage, newPage, options ) {
 
 		this.init();
 
-		// If change from another page in the same sect
+		// If change from another page in the same section
 		if( oldPage ) 
 		{
 
-			// Animate if sect has changed and app has inited
+			// Animate if section has changed and app has inited
 			var animate = !options.sectChanged && app.inited;
 
 			// If change from a different blog-page
@@ -70,7 +71,7 @@ var BlogPageView = PageView.extend({
     | deactivate
     |--------------------------------------------------------------------------
     |
-    | Called when the view is deactivated. Removes blog-page from the page.
+    | Called whenever this view is deactivated.
     |
     */
 	deactivate: function( oldPage, newPage, options ) {
@@ -119,7 +120,7 @@ var BlogPageView = PageView.extend({
     | show
     |--------------------------------------------------------------------------
     |
-    | Shows the view.
+    | Method to show the view.
     |
     */
 	show: function( fx ) {
@@ -134,7 +135,7 @@ var BlogPageView = PageView.extend({
     | hide
     |--------------------------------------------------------------------------
     |
-    | Hides the view.
+    | Method to hide the view.
     |
     */
 	hide: function( fx ) {
@@ -209,8 +210,6 @@ var BlogPageView = PageView.extend({
     |
     */
 	slideOut: function( toSide, animate, next ) {
-
-		//var $el = $(this.el);
 
 		var $this = this;
 

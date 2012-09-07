@@ -5,7 +5,7 @@
  * Creates sections, pages, changers and views based on the input options.
  * 
  * 
- * @package 	Core
+ * @package 	Helpers
  * @created 	Aug 30th 2012
  * @version 	1.0
  *

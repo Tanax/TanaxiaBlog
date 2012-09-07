@@ -1,7 +1,27 @@
-
+/** ===========================================================================
+ * 
+ * MessageChanger
+ *
+ * The changer for the message-section. Takes care of everything that should
+ * happen before a change to or within the message-section.
+ * 
+ * 
+ * @package 	Changers
+ * @created 	Aug 30th 2012
+ * @version 	1.0
+ *
+ ** =========================================================================== */
 var MessageChanger = Page.extend({
 	
-	beforeChange: function( pageId, resourceId, fromStarter ) {
+	/*
+    |--------------------------------------------------------------------------
+    | beforeChange
+    |--------------------------------------------------------------------------
+    |
+    | Called from the section the changer is registered to.
+    |
+    */
+	beforeChange: function( fromStarter ) {
 
 		this.clean();
 		this.ajax = { url: 'http://tanaxiablog.tumblr.com/ask' };
@@ -10,12 +30,29 @@ var MessageChanger = Page.extend({
 
 	},
 
+	/*
+    |--------------------------------------------------------------------------
+    | checkAjax
+    |--------------------------------------------------------------------------
+    |
+    | Checks if we need to use AJAX to request the page the user want
+    | to see as indicated by the URL-hash.
+    |
+    */
 	checkAjax: function() {
 
 		if( $('#message-ask').length <= 0 ) this.handleAjax();
 
 	},
 
+	/*
+    |--------------------------------------------------------------------------
+    | handleAjax
+    |--------------------------------------------------------------------------
+    |
+    | Handles the AJAX-call if a call is necessary.
+    |
+    */
 	handleAjax: function() {
 
 		$('#loadedContent').empty();
@@ -33,6 +70,14 @@ var MessageChanger = Page.extend({
 
 	},
 
+	/*
+    |--------------------------------------------------------------------------
+    | handleData
+    |--------------------------------------------------------------------------
+    |
+    | Handles the data returned by the AJAX-call.
+    |
+    */
 	handleData: function( data ) {
 
 		var content = $(data).filter('#loadedContent').html();
@@ -45,6 +90,14 @@ var MessageChanger = Page.extend({
 
 	},
 
+	/*
+    |--------------------------------------------------------------------------
+    | clean
+    |--------------------------------------------------------------------------
+    |
+    | Cleans internal variables.
+    |
+    */
 	clean: function() {
 
 		this.ajax = null;
@@ -52,3 +105,5 @@ var MessageChanger = Page.extend({
 	}
 
 });
+
+// End of messagechanger.js

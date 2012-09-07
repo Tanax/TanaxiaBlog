@@ -1,6 +1,25 @@
-
+/** ===========================================================================
+ * 
+ * TumblrControlsView
+ *
+ * The view for the Tumblr Controls. Handles things regarding these controls.
+ * 
+ * 
+ * @package 	Views - Custom - General
+ * @created 	Sep 4th 2012
+ * @version 	1.0
+ *
+ ** =========================================================================== */
 var TumblrControlsView = PageView.extend({
 
+	/*
+    |--------------------------------------------------------------------------
+    | activate
+    |--------------------------------------------------------------------------
+    |
+    | Called whenever this view is activated.
+    |
+    */
 	activate: function() {
 
 		var hash = hasher.getHash();
@@ -13,6 +32,14 @@ var TumblrControlsView = PageView.extend({
 
 	},
 
+	/*
+    |--------------------------------------------------------------------------
+    | deactivate
+    |--------------------------------------------------------------------------
+    |
+    | Called whenever this view is deactivated.
+    |
+    */
 	deactivate: function() {
 
 		if( this.el && this.$el.attr('id') != 'tumblrControls' )
@@ -20,6 +47,14 @@ var TumblrControlsView = PageView.extend({
 
 	},
 
+	/*
+    |--------------------------------------------------------------------------
+    | insert
+    |--------------------------------------------------------------------------
+    |
+    | Inserts loaded Tumblr Controls into the website.
+    |
+    */
 	insert: function( name ) {
 
 		var iframe = $('#loadedTumblrControls');
@@ -47,3 +82,5 @@ var TumblrControlsView = PageView.extend({
 	}
 
 });
+
+// End of tumblrcontrolsview.js

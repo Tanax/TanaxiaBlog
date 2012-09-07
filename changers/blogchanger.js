@@ -1,6 +1,26 @@
-
+/** ===========================================================================
+ * 
+ * BlogChanger
+ *
+ * The changer for the blog-section. Takes care of everything that should
+ * happen before a change to or within the blog-section.
+ * 
+ * 
+ * @package 	Changers
+ * @created 	Aug 30th 2012
+ * @version 	1.0
+ *
+ ** =========================================================================== */
 var BlogChanger = Page.extend({
 
+	/*
+    |--------------------------------------------------------------------------
+    | beforeChange
+    |--------------------------------------------------------------------------
+    |
+    | Called from the section the changer is registered to.
+    |
+    */
 	beforeChange: function( fromStarter ) {
 
 		this.clean();
@@ -15,12 +35,29 @@ var BlogChanger = Page.extend({
 
 	},
 
+	/*
+    |--------------------------------------------------------------------------
+    | checkAjax
+    |--------------------------------------------------------------------------
+    |
+    | Checks if we need to use AJAX to request the page the user want
+    | to see as indicated by the URL-hash.
+    |
+    */
 	checkAjax: function() {
 
 		if( Utils.prototype.hashElement( this.element, this.excludeHash ) ) this.handleAjax();
 
 	},
 
+	/*
+    |--------------------------------------------------------------------------
+    | handleAjax
+    |--------------------------------------------------------------------------
+    |
+    | Handles the AJAX-call if a call is necessary.
+    |
+    */
 	handleAjax: function() {
 
 		$('#loadedContent').empty();
@@ -38,6 +75,14 @@ var BlogChanger = Page.extend({
 
 	},
 
+	/*
+    |--------------------------------------------------------------------------
+    | handleData
+    |--------------------------------------------------------------------------
+    |
+    | Handles the data returned by the AJAX-call.
+    |
+    */
 	handleData: function( data ) {
 
 		var content = $(data).filter('#loadedContent').html();
@@ -50,6 +95,14 @@ var BlogChanger = Page.extend({
 
 	},
 
+	/*
+    |--------------------------------------------------------------------------
+    | clean
+    |--------------------------------------------------------------------------
+    |
+    | Cleans internal variables.
+    |
+    */
 	clean: function() {
 
 		this.ajax 		 = null;
@@ -59,3 +112,5 @@ var BlogChanger = Page.extend({
 	}
 
 });
+
+// End of blogchanger.js
